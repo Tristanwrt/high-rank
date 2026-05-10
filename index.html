@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,500;10..48,600;10..48,700;10..48,800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<script src="https://unpkg.com/three@0.163.0/build/three.min.js"></script>
 
 <style>
 /* ── Reset ───────────────────────────────────────────────────────── */
@@ -738,9 +739,58 @@ img { max-width: 100%; display: block; }
   .compare-col { padding: 28px 22px; }
   .problem-cell { padding: 28px 22px; min-height: 0; }
 }
+
+/* ── Animations ──────────────────────────────────────────────────── */
+
+/* Dotted wave canvas sits behind everything */
+#bg-canvas {
+  position: fixed; inset: 0; z-index: 0;
+  pointer-events: none; opacity: 0.55;
+}
+.nav, .hero, .section, .final-cta, .footer { position: relative; z-index: 1; }
+
+/* Hero grid slow drift */
+@keyframes grid-pan {
+  from { background-position: 0 0, 0 0; }
+  to   { background-position: 56px 56px, 56px 56px; }
+}
+.hero-grid { animation: grid-pan 28s linear infinite; }
+
+/* Accent glow pulse on hero highlight */
+@keyframes em-glow {
+  0%, 100% { box-shadow: none; }
+  50%       { box-shadow: 0 0 32px 8px rgba(229,255,0,.18); }
+}
+.hero h1 em { animation: em-glow 4s ease-in-out infinite; }
+
+/* Service tile hover lift */
+.service-tile {
+  transition: border-color .15s, transform .25s cubic-bezier(0.16,1,0.3,1);
+}
+.service-tile:hover { transform: translateY(-5px); }
+
+/* Scroll reveal base state — applied via JS so no-JS users see content */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1),
+              transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.in { opacity: 1; transform: none; }
+
+/* Manifesto gets a scale reveal */
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.93);
+  transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1),
+              transform 0.8s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal-scale.in { opacity: 1; transform: none; }
 </style>
 </head>
 <body>
+
+<canvas id="bg-canvas"></canvas>
 
 <!-- ── Nav ───────────────────────────────────────────────────────── -->
 <nav class="nav">
@@ -1129,7 +1179,156 @@ img { max-width: 100%; display: block; }
 </footer>
 
 <script>
-  // FAQ accordion
+  /* ── Three.js dotted wave background ── */
+  (function () {
+    const canvas = document.getElementById('bg-canvas');
+    if (!window.THREE || !canvas) return;
+
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0x000000, 0);
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 10000);
+    camera.position.set(0, 380, 1400);
+
+    const SEP = 140, AX = 32, AY = 48;
+    const n = AX * AY;
+    const pos = new Float32Array(n * 3);
+    const col = new Float32Array(n * 3);
+
+    let k = 0;
+    for (let ix = 0; ix < AX; ix++) {
+      for (let iy = 0; iy < AY; iy++) {
+        pos[k * 3]     = ix * SEP - (AX * SEP) / 2;
+        pos[k * 3 + 1] = 0;
+        pos[k * 3 + 2] = iy * SEP - (AY * SEP) / 2;
+        /* subtle electric-yellow tint */
+        col[k * 3] = 0.85; col[k * 3 + 1] = 0.95; col[k * 3 + 2] = 0.3;
+        k++;
+      }
+    }
+
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    geo.setAttribute('color',    new THREE.BufferAttribute(col, 3));
+
+    const mat = new THREE.PointsMaterial({ size: 5, vertexColors: true, transparent: true, opacity: 0.28, sizeAttenuation: true });
+    scene.add(new THREE.Points(geo, mat));
+
+    let t = 0;
+    (function loop() {
+      requestAnimationFrame(loop);
+      const p = geo.attributes.position.array;
+      let i = 0;
+      for (let ix = 0; ix < AX; ix++) {
+        for (let iy = 0; iy < AY; iy++) {
+          p[i * 3 + 1] = Math.sin((ix + t) * 0.3) * 55 + Math.sin((iy + t) * 0.5) * 55;
+          i++;
+        }
+      }
+      geo.attributes.position.needsUpdate = true;
+      renderer.render(scene, camera);
+      t += 0.045;
+    })();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  })();
+
+  /* ── Hero stagger entrance ── */
+  (function () {
+    const items = [
+      ['.hero-pill',  200],
+      ['.hero h1',    380],
+      ['.hero-sub',   530],
+      ['.hero-ctas',  660],
+      ['.kw-row',     800],
+      ['.hero-meta',  960],
+    ];
+    const ease = 'cubic-bezier(0.16,1,0.3,1)';
+    items.forEach(([sel, delay]) => {
+      const el = document.querySelector(sel);
+      if (!el) return;
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(22px)';
+      setTimeout(() => {
+        el.style.transition = `opacity 0.75s ${ease}, transform 0.75s ${ease}`;
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      }, delay);
+    });
+  })();
+
+  /* ── Scroll reveals ── */
+  (function () {
+    /* mark elements for reveal */
+    const groups = [
+      ['.section-head',       'reveal', 0],
+      ['.problem-cell',       'reveal', 90],
+      ['.compare-col',        'reveal', 80],
+      ['.compare-tagline',    'reveal', 0],
+      ['.diff-cell',          'reveal', 80],
+      ['.service-tile',       'reveal', 80],
+      ['.brief',              'reveal', 0],
+      ['.reassure-cell',      'reveal', 100],
+      ['.manifesto-quote',    'reveal-scale', 0],
+      ['.manifesto-sub',      'reveal', 0],
+      ['.faq-item',           'reveal', 45],
+      ['.final-cta h2',       'reveal', 0],
+      ['.final-cta p',        'reveal', 120],
+      ['.final-cta-actions',  'reveal', 240],
+    ];
+
+    groups.forEach(([sel, cls, stagger]) => {
+      document.querySelectorAll(sel).forEach((el, i) => {
+        el.classList.add(cls);
+        if (stagger) el.style.transitionDelay = `${i * stagger}ms`;
+      });
+    });
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal, .reveal-scale').forEach((el) => io.observe(el));
+  })();
+
+  /* ── Hero-meta number counters ── */
+  (function () {
+    const targets = [
+      { el: document.querySelector('.hero-meta span:nth-child(1) b'), end: 3, suffix: '+' },
+      { el: document.querySelector('.hero-meta span:nth-child(2) b'), end: 20, suffix: '+' },
+      { el: document.querySelector('.hero-meta span:nth-child(3) b'), end: 6,  suffix: '' },
+    ];
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const { el, end, suffix } = targets.find(t => t.el === entry.target) || {};
+        if (!el) return;
+        io.unobserve(el);
+        let n = 0;
+        const step = () => {
+          n++;
+          el.textContent = n + suffix;
+          if (n < end) setTimeout(step, 60);
+        };
+        step();
+      });
+    }, { threshold: 0.5 });
+    targets.forEach(({ el }) => { if (el) io.observe(el); });
+  })();
+
+  /* ── FAQ accordion ── */
   document.querySelectorAll('.faq-q').forEach((btn) => {
     btn.addEventListener('click', () => {
       const item = btn.closest('.faq-item');
@@ -1145,7 +1344,7 @@ img { max-width: 100%; display: block; }
     });
   });
 
-  // Brief form submission
+  /* ── Brief form submission ── */
   document.getElementById('brief-form').addEventListener('submit', (e) => {
     e.preventDefault();
     document.getElementById('brief').classList.add('sent');
