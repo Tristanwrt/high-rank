@@ -1,0 +1,1157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HIGH RANK — SEO + AI consulting, no fluff</title>
+<meta name="description" content="HIGH RANK — Independent SEO consulting. AI-powered analysis, expert-driven decisions. AI detects, my expertise decides." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,500;10..48,600;10..48,700;10..48,800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+/* ── Reset ───────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+
+/* ── Signal charte tokens ────────────────────────────────────────── */
+:root {
+  --bg: #0E0E10;
+  --bg-elev: #1A1A1E;
+  --bg-elev2: #232328;
+  --bg-invert: #FFFFFF;
+  --text-on-invert: #0E0E10;
+  --text-on-invert-mute: #5A5A62;
+  --border: #2A2A30;
+  --border-strong: #45454F;
+  --text: #FAFAFA;
+  --text-mute: #8E8E96;
+  --text-faint: #5A5A62;
+  --accent: #E5FF00;
+  --accent-text: #0E0E10;
+  --accent-soft: rgba(229,255,0,.16);
+  --f-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --f-display: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
+  --f-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --radius: 4px;
+  --radius-lg: 10px;
+  --grid-line: rgba(255,255,255,.05);
+  color-scheme: dark;
+}
+
+/* ── Base ────────────────────────────────────────────────────────── */
+body {
+  font-family: var(--f-sans);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
+img { max-width: 100%; display: block; }
+.brand, h1, h2, h3, h4 { font-family: var(--f-display); }
+
+/* ── Layout ──────────────────────────────────────────────────────── */
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 28px; }
+
+.eyebrow {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.eyebrow::before {
+  content: "";
+  width: 6px; height: 6px;
+  background: var(--accent);
+  border-radius: 1px;
+}
+
+/* ── Nav ─────────────────────────────────────────────────────────── */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px;
+}
+.brand {
+  display: flex; align-items: center; gap: 10px;
+  font-weight: 700; letter-spacing: -0.01em;
+  font-size: 16px;
+  text-transform: uppercase;
+  font-family: var(--f-display);
+}
+.brand-mark {
+  width: 26px; height: 26px;
+  display: grid; place-items: center;
+  background: var(--accent);
+  color: var(--accent-text);
+  border-radius: 2px;
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-size: 13px;
+}
+.nav-links { display: flex; gap: 4px; align-items: center; }
+.nav-link {
+  font-size: 14px;
+  color: var(--text-mute);
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  transition: color .15s, background .15s;
+}
+.nav-link:hover { color: var(--text); background: var(--bg-elev); }
+.nav-cta { display: flex; align-items: center; gap: 8px; }
+@media (max-width: 760px) { .nav-links { display: none; } }
+
+/* ── Buttons ─────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 11px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: var(--radius);
+  transition: transform .1s, background .15s, border-color .15s, box-shadow .15s, color .15s;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary {
+  background: var(--accent);
+  color: var(--accent-text);
+  border-color: var(--accent);
+}
+.btn-primary:hover { box-shadow: 0 0 0 4px var(--accent-soft); }
+.btn-ghost {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+.btn-ghost:hover { background: var(--bg-elev); border-color: var(--text-mute); }
+.btn-lg { padding: 14px 22px; font-size: 15px; }
+.btn-xl { padding: 18px 28px; font-size: 16px; }
+
+/* ── Hero ────────────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  padding: 96px 0 88px;
+  overflow: hidden;
+}
+.hero-grid {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 70% 50% at 50% 30%, black 50%, transparent 100%);
+}
+.hero-pill {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 6px 12px 6px 6px;
+  border: 1px solid var(--border);
+  background: var(--bg-elev);
+  border-radius: 4px;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  color: var(--text-mute);
+  margin-bottom: 28px;
+}
+.hero-pill-tag {
+  padding: 2px 8px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: 2px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.hero h1 {
+  font-size: clamp(40px, 6.6vw, 76px);
+  line-height: 1.0;
+  letter-spacing: -0.04em;
+  font-weight: 800;
+  max-width: 18ch;
+  margin-bottom: 24px;
+  text-wrap: balance;
+}
+.hero h1 em {
+  font-style: normal;
+  background: var(--accent);
+  color: var(--accent-text);
+  padding: 0 14px;
+}
+.hero-sub {
+  font-size: clamp(17px, 1.5vw, 19px);
+  color: var(--text-mute);
+  max-width: 60ch;
+  margin-bottom: 40px;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+.hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.hero-meta {
+  display: flex; gap: 36px; margin-top: 64px;
+  font-family: var(--f-mono); font-size: 12px;
+  color: var(--text-faint);
+  flex-wrap: wrap;
+}
+.hero-meta b { color: var(--text); font-weight: 500; }
+.kw-row {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-top: 36px;
+  max-width: 720px;
+}
+.kw {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  padding: 5px 10px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  color: var(--text-mute);
+  border-radius: 4px;
+}
+.kw.hl {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+/* ── Sections ────────────────────────────────────────────────────── */
+.section { padding: 110px 0; border-top: 1px solid var(--border); position: relative; }
+.section-head { margin-bottom: 64px; max-width: 720px; }
+.section-head .eyebrow { margin-bottom: 16px; }
+.section-head h2 {
+  font-size: clamp(34px, 4.2vw, 52px);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  font-weight: 800;
+  text-wrap: balance;
+}
+.section-head p {
+  margin-top: 18px;
+  font-size: 18px;
+  color: var(--text-mute);
+  max-width: 60ch;
+  line-height: 1.55;
+}
+.section.invert {
+  background: var(--bg-invert);
+  color: var(--text-on-invert);
+  border-top-color: var(--bg-invert);
+}
+.section.invert .section-head p,
+.section.invert .text-mute { color: var(--text-on-invert-mute); }
+
+/* ── Problem ─────────────────────────────────────────────────────── */
+.problem-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.problem-cell {
+  background: var(--bg);
+  padding: 36px 32px;
+  display: flex; flex-direction: column; gap: 14px;
+  min-height: 260px;
+}
+.problem-num {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--text-faint);
+  letter-spacing: 0.06em;
+}
+.problem-cell h3 {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+}
+.problem-cell p {
+  color: var(--text-mute);
+  font-size: 15px;
+  line-height: 1.55;
+}
+.problem-conclusion {
+  margin-top: 56px;
+  font-size: clamp(22px, 2.6vw, 32px);
+  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  max-width: 28ch;
+  text-wrap: balance;
+}
+.problem-conclusion em {
+  font-style: normal;
+  background: var(--accent);
+  color: var(--accent-text);
+  padding: 0 8px;
+  font-weight: 700;
+}
+@media (max-width: 900px) { .problem-grid { grid-template-columns: 1fr; } }
+
+/* ── Compare ─────────────────────────────────────────────────────── */
+.compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.compare-col { background: var(--bg); padding: 40px 36px; }
+.compare-col.us { background: var(--bg-elev); }
+.compare-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 24px;
+}
+.compare-col.us .compare-label { color: var(--accent); }
+.compare-col.us .compare-label::before {
+  content: ""; width: 6px; height: 6px; background: var(--accent); border-radius: 1px;
+}
+.compare-list {
+  display: flex; flex-direction: column; gap: 14px;
+  list-style: none;
+}
+.compare-list li {
+  display: flex; align-items: flex-start; gap: 12px;
+  font-size: 16px;
+  color: var(--text);
+  line-height: 1.5;
+}
+.compare-col:not(.us) .compare-list li {
+  color: var(--text-mute);
+  text-decoration: line-through;
+  text-decoration-color: var(--border-strong);
+  text-decoration-thickness: 1px;
+}
+.compare-list li::before {
+  content: "—";
+  font-family: var(--f-mono);
+  color: var(--text-faint);
+  flex-shrink: 0;
+  width: 12px;
+}
+.compare-col.us .compare-list li::before {
+  content: "✓";
+  color: var(--accent);
+  font-weight: 700;
+}
+.compare-tagline {
+  margin-top: 56px;
+  text-align: center;
+  font-size: clamp(28px, 3.4vw, 44px);
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+  font-weight: 800;
+}
+.compare-tagline em { font-style: normal; color: var(--accent); }
+@media (max-width: 900px) { .compare { grid-template-columns: 1fr; } }
+
+/* ── Diff ────────────────────────────────────────────────────────── */
+.diff-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.diff-cell {
+  background: var(--bg);
+  padding: 32px 32px;
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 18px;
+  min-height: 180px;
+}
+.diff-arrow {
+  font-family: var(--f-mono);
+  font-size: 22px;
+  color: var(--accent);
+  font-weight: 700;
+  line-height: 1;
+}
+.diff-cell h3 {
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+.diff-cell p { color: var(--text-mute); font-size: 14.5px; line-height: 1.55; }
+.diff-conclusion {
+  margin-top: 44px;
+  font-size: 18px;
+  color: var(--text-mute);
+  max-width: 64ch;
+  line-height: 1.55;
+}
+@media (max-width: 800px) { .diff-grid { grid-template-columns: 1fr; } }
+
+/* ── Services ────────────────────────────────────────────────────── */
+.service-tiles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  align-items: stretch;
+  margin-bottom: 64px;
+}
+.service-tile {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px 28px;
+  display: flex; flex-direction: column; gap: 14px;
+  transition: border-color .15s;
+}
+.service-tile:hover { border-color: var(--accent); }
+.service-tile-num {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--text-faint);
+  letter-spacing: 0.06em;
+}
+.service-tile h3 {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+}
+.service-tile-note {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+.service-tile-bullets { list-style: none; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.service-tile-bullets li {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 14.5px;
+  color: var(--text);
+  line-height: 1.5;
+}
+.service-tile-bullets li::before {
+  content: "✓";
+  color: var(--accent);
+  font-weight: 700;
+  font-family: var(--f-mono);
+  flex-shrink: 0;
+}
+@media (max-width: 1000px) { .service-tiles { grid-template-columns: 1fr; } }
+
+/* ── Brief form ──────────────────────────────────────────────────── */
+.brief {
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 56px 56px;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 56px;
+  align-items: start;
+}
+.brief-head h2 {
+  font-size: clamp(28px, 3.4vw, 40px);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  font-weight: 800;
+  margin-bottom: 16px;
+  text-wrap: balance;
+}
+.brief-head p { color: var(--text-mute); font-size: 16px; line-height: 1.55; max-width: 38ch; }
+.brief-head .eyebrow { margin-bottom: 18px; }
+.brief-head-meta {
+  margin-top: 32px;
+  display: flex; flex-direction: column; gap: 12px;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  color: var(--text-mute);
+}
+.brief-head-meta div { display: flex; align-items: center; gap: 10px; }
+.brief-head-meta div::before { content: "✓"; color: var(--accent); font-weight: 700; }
+
+.brief-form { display: flex; flex-direction: column; gap: 18px; }
+.brief-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+.field input,
+.field textarea {
+  font: inherit;
+  font-size: 15px;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  outline: none;
+  transition: border-color .15s, box-shadow .15s;
+  width: 100%;
+  font-family: var(--f-sans);
+}
+.field input::placeholder,
+.field textarea::placeholder { color: var(--text-faint); }
+.field input:focus,
+.field textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.field textarea { resize: vertical; min-height: 96px; line-height: 1.5; }
+.field-url-wrap {
+  display: flex; align-items: stretch;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--bg);
+  transition: border-color .15s, box-shadow .15s;
+}
+.field-url-wrap:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.field-url-wrap span {
+  font-family: var(--f-mono);
+  font-size: 13px;
+  color: var(--text-faint);
+  padding: 12px 14px;
+  background: var(--bg-elev2);
+  border-right: 1px solid var(--border);
+  white-space: nowrap;
+}
+.field-url-wrap input {
+  border: 0; border-radius: 0; box-shadow: none !important;
+  flex: 1; padding-left: 14px; background: transparent;
+}
+
+.consent {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 13.5px; color: var(--text-mute); cursor: pointer;
+}
+.consent input { width: 16px; height: 16px; accent-color: var(--accent); cursor: pointer; }
+
+.brief-foot {
+  display: flex; align-items: center;
+  justify-content: space-between; gap: 16px; flex-wrap: wrap;
+}
+.brief-foot .btn-primary { padding: 14px 26px; font-size: 15px; }
+.brief-foot small { font-family: var(--f-mono); font-size: 11.5px; color: var(--text-faint); }
+
+.brief-success {
+  display: grid; place-items: center;
+  padding: 64px 32px;
+  text-align: center;
+  grid-column: 1 / -1;
+}
+.brief-success h3 {
+  font-family: var(--f-display); font-size: 28px; font-weight: 700;
+  letter-spacing: -0.02em; margin-bottom: 12px;
+}
+.brief-success p { color: var(--text-mute); max-width: 40ch; line-height: 1.55; }
+.brief-success-mark {
+  width: 56px; height: 56px;
+  display: grid; place-items: center;
+  background: var(--accent); color: var(--accent-text);
+  border-radius: 4px; margin-bottom: 20px;
+  font-family: var(--f-mono); font-weight: 700; font-size: 24px;
+}
+.brief-success { display: none; }
+.brief-form-wrap { display: contents; }
+.brief.sent .brief-success { display: grid; }
+.brief.sent .brief-form-wrap { display: none; }
+
+@media (max-width: 1000px) {
+  .brief { grid-template-columns: 1fr; padding: 40px 28px; gap: 32px; }
+  .brief-row { grid-template-columns: 1fr; }
+}
+
+/* ── Reassure ────────────────────────────────────────────────────── */
+.reassure-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+.reassure-cell { display: flex; flex-direction: column; gap: 12px; }
+.reassure-num {
+  font-family: var(--f-mono);
+  font-size: 13px;
+  color: var(--text-faint);
+}
+.reassure-cell h4 {
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+}
+.reassure-cell p { color: var(--text-mute); font-size: 15px; line-height: 1.55; }
+@media (max-width: 800px) { .reassure-grid { grid-template-columns: 1fr; } }
+
+/* ── Manifesto ───────────────────────────────────────────────────── */
+.manifesto-quote {
+  font-size: clamp(36px, 5vw, 64px);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  font-weight: 800;
+  text-wrap: balance;
+  text-align: center;
+  margin-bottom: 24px;
+}
+.manifesto-quote em { font-style: normal; color: var(--accent); }
+.manifesto-sub {
+  text-align: center;
+  font-size: 17px;
+  color: var(--text-on-invert-mute);
+  max-width: 56ch;
+  margin: 0 auto;
+  line-height: 1.55;
+}
+
+/* ── FAQ ─────────────────────────────────────────────────────────── */
+.faq-list {
+  display: flex; flex-direction: column; gap: 0;
+  max-width: 920px; margin: 0 auto;
+  border-top: 1px solid var(--border);
+}
+.faq-item { border-bottom: 1px solid var(--border); }
+.faq-q {
+  width: 100%;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 24px 0;
+  text-align: left;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  gap: 24px;
+  transition: color .15s;
+}
+.faq-q:hover { color: var(--accent); }
+.faq-toggle {
+  width: 28px; height: 28px;
+  display: grid; place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-family: var(--f-mono);
+  font-size: 14px;
+  flex-shrink: 0;
+  transition: transform .2s, border-color .15s, color .15s;
+  color: var(--text-mute);
+}
+.faq-item.open .faq-toggle { transform: rotate(45deg); border-color: var(--accent); color: var(--accent); }
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .25s ease;
+}
+.faq-item.open .faq-a { max-height: 400px; }
+.faq-a-inner {
+  padding: 0 0 24px;
+  font-size: 16px;
+  color: var(--text-mute);
+  line-height: 1.6;
+  max-width: 64ch;
+}
+
+/* ── Final CTA ───────────────────────────────────────────────────── */
+.final-cta {
+  text-align: center;
+  padding: 110px 0 130px;
+  background: var(--bg-invert);
+  color: var(--text-on-invert);
+  border-top: 1px solid var(--bg-invert);
+}
+.final-cta h2 {
+  font-size: clamp(44px, 6vw, 80px);
+  line-height: 1.0;
+  letter-spacing: -0.045em;
+  font-weight: 800;
+  text-wrap: balance;
+  margin-bottom: 20px;
+  max-width: 16ch;
+  margin-inline: auto;
+}
+.final-cta h2 em { font-style: normal; color: var(--accent); }
+.final-cta p {
+  font-size: 18px;
+  color: var(--text-on-invert-mute);
+  margin-bottom: 40px;
+  max-width: 50ch;
+  margin-inline: auto;
+}
+.final-cta-actions {
+  display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+}
+.final-cta .btn-ghost {
+  color: var(--text-on-invert);
+  border-color: rgba(0,0,0,.25);
+}
+.final-cta .btn-ghost:hover { background: rgba(0,0,0,.06); }
+
+/* ── Footer ──────────────────────────────────────────────────────── */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 40px 0 56px;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  color: var(--text-faint);
+}
+.footer-inner {
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 16px;
+}
+.footer a { color: var(--text-mute); }
+.footer a:hover { color: var(--text); }
+.footer-links { display: flex; gap: 18px; }
+
+/* ── Responsive ──────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .section { padding: 72px 0; }
+  .hero { padding: 56px 0 48px; }
+  .final-cta { padding: 72px 0 88px; }
+  .hero-meta { gap: 18px; }
+  .compare-col { padding: 28px 22px; }
+  .problem-cell { padding: 28px 22px; min-height: 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Nav ───────────────────────────────────────────────────────── -->
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand">
+      <span class="brand-mark">H</span>
+      HIGH RANK
+    </a>
+    <div class="nav-links">
+      <a href="#problem" class="nav-link">Why</a>
+      <a href="#method" class="nav-link">Method</a>
+      <a href="#services" class="nav-link">Services</a>
+      <a href="#faq" class="nav-link">FAQ</a>
+    </div>
+    <div class="nav-cta">
+      <a href="#brief" class="btn btn-primary">Book an audit →</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Hero ──────────────────────────────────────────────────────── -->
+<section class="hero" id="top">
+  <div class="hero-grid"></div>
+  <div class="wrap" style="position:relative">
+    <div class="hero-pill">
+      <span class="hero-pill-tag">Available</span>
+      <span>Independent SEO consultant — booking now</span>
+    </div>
+    <h1>Your SEO is stuck <em>and you don't know why</em>.</h1>
+    <p class="hero-sub">I find the hidden opportunities your tools miss. AI-powered analysis, expert-driven decisions.</p>
+    <div class="hero-ctas">
+      <a href="#brief" class="btn btn-primary btn-lg">Request an audit →</a>
+      <a href="#brief" class="btn btn-ghost btn-lg">15-min call</a>
+    </div>
+    <div class="kw-row">
+      <span class="kw hl">Programmatic SEO</span>
+      <span class="kw hl">GEO / LLM visibility</span>
+      <span class="kw hl">MCP</span>
+      <span class="kw">Tech SEO</span>
+      <span class="kw">Semantic</span>
+      <span class="kw">Link building</span>
+    </div>
+    <div class="hero-meta">
+      <span><b>3+ yrs</b> · agency-side</span>
+      <span><b>20+ industries</b> · covered</span>
+      <span><b>6 sites</b> · of my own</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── Problem ───────────────────────────────────────────────────── -->
+<section class="section" id="problem">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">The problem</div>
+      <h2>Why your SEO isn't moving.</h2>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-cell">
+        <div class="problem-num">01</div>
+        <h3>You ran the free tools.</h3>
+        <p>10,000 lines of Excel. Zero idea what to do first. The tools surface symptoms — not priorities.</p>
+      </div>
+      <div class="problem-cell">
+        <div class="problem-num">02</div>
+        <h3>You read 20 SEO checklists.</h3>
+        <p>Every one of them says something different. Half are outdated. None are written for your specific site.</p>
+      </div>
+      <div class="problem-cell">
+        <div class="problem-num">03</div>
+        <h3>You asked your dev to fix it.</h3>
+        <p>They shipped the changes. Traffic didn't move. SEO isn't an engineering ticket — it's a strategy.</p>
+      </div>
+    </div>
+    <p class="problem-conclusion">
+      SEO isn't one checklist. It's <em>200 micro-decisions</em> that only experience knows how to make.
+    </p>
+  </div>
+</section>
+
+<!-- ── Solution / Method ─────────────────────────────────────────── -->
+<section class="section" id="method">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">The method</div>
+      <h2>AI handles the volume. I handle the call.</h2>
+      <p>Most consultants stop where the data dump ends. I start there.</p>
+    </div>
+    <div class="compare">
+      <div class="compare-col">
+        <div class="compare-label">Standard consultants</div>
+        <ul class="compare-list">
+          <li>Crawl with off-the-shelf tools</li>
+          <li>Hand you 10,000 rows of CSV</li>
+          <li>"Here are the issues — good luck"</li>
+          <li>Static report, no follow-up</li>
+        </ul>
+      </div>
+      <div class="compare-col us">
+        <div class="compare-label">HIGH RANK</div>
+        <ul class="compare-list">
+          <li>SEO expertise + custom AI models</li>
+          <li>AI processes data, my brain ranks priorities</li>
+          <li>Concrete action plan: quick wins + long-term plays</li>
+          <li>Live tracking, weekly check-ins</li>
+        </ul>
+      </div>
+    </div>
+    <p class="compare-tagline">
+      AI <em>detects</em>. My expertise <em>decides</em>.
+    </p>
+  </div>
+</section>
+
+<!-- ── Diff / What I find ─────────────────────────────────────────── -->
+<section class="section" id="diff">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">What I find</div>
+      <h2>What my audit catches that other tools miss.</h2>
+    </div>
+    <div class="diff-grid">
+      <div class="diff-cell">
+        <div class="diff-arrow">→</div>
+        <div>
+          <h3>Zombie pages cannibalizing your own content.</h3>
+          <p>Pages competing against each other. Kill, merge, or reroute — I tell you which.</p>
+        </div>
+      </div>
+      <div class="diff-cell">
+        <div class="diff-arrow">→</div>
+        <div>
+          <h3>Keywords ranking #11–20 with one push to top 10.</h3>
+          <p>The fastest revenue you can ship in SEO. Most audits skip this entirely.</p>
+        </div>
+      </div>
+      <div class="diff-cell">
+        <div class="diff-arrow">→</div>
+        <div>
+          <h3>Internal linking diluting your authority.</h3>
+          <p>Your link equity is leaking. I show exactly where and how to redirect it.</p>
+        </div>
+      </div>
+      <div class="diff-cell">
+        <div class="diff-arrow">→</div>
+        <div>
+          <h3>Content gaps vs your top-3 competitors.</h3>
+          <p>What they rank on that you don't even cover. Prioritized by search intent and difficulty.</p>
+        </div>
+      </div>
+    </div>
+    <p class="diff-conclusion">AI lets me process volumes a human can't. My expertise turns that into a plan that pays.</p>
+  </div>
+</section>
+
+<!-- ── Services + Brief ───────────────────────────────────────────── -->
+<section class="section" id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Services</div>
+      <h2>How I can help.</h2>
+      <p>Three ways to work together. Tell me your situation — I'll come back with a scoped proposal in 24h.</p>
+    </div>
+    <div class="service-tiles">
+      <div class="service-tile">
+        <div class="service-tile-num">— 01</div>
+        <h3>Complete SEO Audit</h3>
+        <div class="service-tile-note">Delivered in 3–5 days</div>
+        <ul class="service-tile-bullets">
+          <li>Technical audit (architecture, crawl, performance)</li>
+          <li>Semantic audit (keywords, content gaps, intent)</li>
+          <li>Backlink audit (authority, profile, competitors)</li>
+          <li>Prioritized action plan — not a 500-row Excel</li>
+        </ul>
+      </div>
+      <div class="service-tile">
+        <div class="service-tile-num">— 02</div>
+        <h3>Audit + 3-Month Build</h3>
+        <div class="service-tile-note">Audit + 3 months of execution</div>
+        <ul class="service-tile-bullets">
+          <li>Everything in the complete audit</li>
+          <li>Guided implementation for 3 months</li>
+          <li>Monthly page-level optimization</li>
+          <li>Qualified backlink acquisition</li>
+        </ul>
+      </div>
+      <div class="service-tile">
+        <div class="service-tile-num">— 03</div>
+        <h3>Continuous Retainer</h3>
+        <div class="service-tile-note">Scoped to your business</div>
+        <ul class="service-tile-bullets">
+          <li>Initial audit included</li>
+          <li>Ongoing optimization across the site</li>
+          <li>Transparent monthly reporting</li>
+          <li>Monthly strategy call</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Brief form -->
+    <div class="brief" id="brief">
+      <div class="brief-head">
+        <div class="eyebrow">Brief</div>
+        <h2>Tell me about your project.</h2>
+        <p>No 12-field gauntlet. Drop your URL, your goal, and what's blocking you. I read every brief myself.</p>
+        <div class="brief-head-meta">
+          <div>Reply within 24h</div>
+          <div>Free 15-min discovery call</div>
+          <div>NDA on request</div>
+        </div>
+      </div>
+
+      <div class="brief-success">
+        <div class="brief-success-mark">✓</div>
+        <h3>Brief received.</h3>
+        <p>I'll get back to you within 24h with a scoped proposal — or follow-up questions if I need them. No funnel, no spam.</p>
+      </div>
+
+      <div class="brief-form-wrap">
+        <form class="brief-form" id="brief-form" novalidate>
+          <div class="field">
+            <label for="url">Website URL</label>
+            <div class="field-url-wrap">
+              <span>https://</span>
+              <input id="url" name="url" type="text" placeholder="yourdomain.com" required />
+            </div>
+          </div>
+          <div class="brief-row">
+            <div class="field">
+              <label for="name">Your name</label>
+              <input id="name" name="name" type="text" placeholder="Jane Doe" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="jane@company.com" required />
+            </div>
+          </div>
+          <div class="field">
+            <label for="goal">Main goal</label>
+            <textarea id="goal" name="goal" rows="3"
+              placeholder="What does success look like in 6 months? (e.g. +40% organic traffic, rank top-3 on X queries, 30 demos/mo from SEO…)"
+              required></textarea>
+          </div>
+          <div class="field">
+            <label for="context">Context — current situation</label>
+            <textarea id="context" name="context" rows="4"
+              placeholder="Stack, traffic level, previous SEO work, blockers, deadlines, budget range — anything that helps me scope."></textarea>
+          </div>
+          <label class="consent">
+            <input type="checkbox" name="consent" checked />
+            I'd like a free 15-min discovery call before any commitment.
+          </label>
+          <div class="brief-foot">
+            <small>I reply within 24h. No automated funnel, no pushy follow-up.</small>
+            <button type="submit" class="btn btn-primary">Send brief →</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Reassure ───────────────────────────────────────────────────── -->
+<section class="section" id="why">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Why HIGH RANK</div>
+      <h2>Three reasons clients pick me.</h2>
+    </div>
+    <div class="reassure-grid">
+      <div class="reassure-cell">
+        <div class="reassure-num">/ 01</div>
+        <h4>3 years agency-side + 6 sites of my own.</h4>
+        <p>I've shipped on enterprise stacks and on my own properties. Real skin in the game.</p>
+      </div>
+      <div class="reassure-cell">
+        <div class="reassure-num">/ 02</div>
+        <h4>AI methodology I actually built.</h4>
+        <p>Custom MCP servers, real workflows — not a ChatGPT prompt I sell back to you.</p>
+      </div>
+      <div class="reassure-cell">
+        <div class="reassure-num">/ 03</div>
+        <h4>No empty promises.</h4>
+        <p>Measurable outcomes only. If the audit doesn't deliver, you get a partial refund. In writing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Manifesto ──────────────────────────────────────────────────── -->
+<section class="section invert">
+  <div class="wrap">
+    <p class="manifesto-quote">
+      AI <em>detects</em>. My expertise <em>decides</em>.
+    </p>
+    <p class="manifesto-sub">That's the whole pitch. No shortcut, no fluff, no AI-written reports you'll never read.</p>
+  </div>
+</section>
+
+<!-- ── FAQ ────────────────────────────────────────────────────────── -->
+<section class="section" id="faq">
+  <div class="wrap">
+    <div class="section-head" style="text-align:center;margin-inline:auto">
+      <div class="eyebrow" style="justify-content:center">FAQ</div>
+      <h2>Common questions.</h2>
+    </div>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          <span>Why "AI-powered"?</span>
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-a" role="region">
+          <div class="faq-a-inner">AI spots patterns across thousands of URLs in minutes — patterns a human would miss or take weeks to surface. My job is to filter what actually matters and turn it into decisions. The AI never decides; it accelerates.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          <span>How are you different from other SEO consultants?</span>
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-a" role="region">
+          <div class="faq-a-inner">Three things: I write code, I know every CMS, and I've built MCP-based workflows so the LLMs work for me, not the other way around. Most consultants either talk strategy without execution, or execute without strategy. I do both.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          <span>Can I just do this myself?</span>
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-a" role="region">
+          <div class="faq-a-inner">Yes — if you have 40 hours to learn the playbook and 200 hours to execute. If your time is more valuable than that, hire someone who's already done it 20 times.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          <span>What guarantee do I have?</span>
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-a" role="region">
+          <div class="faq-a-inner">If the audit doesn't surface enough actionable opportunities to justify the investment, I refund part of the fee. Spelled out in the contract before you pay.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          <span>How long until I see results?</span>
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-a" role="region">
+          <div class="faq-a-inner">Quick wins: 4–8 weeks. Real movement on competitive terms: 2–4 months. Anyone promising you week-one results is selling you something other than SEO.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Final CTA ──────────────────────────────────────────────────── -->
+<section class="final-cta" id="contact">
+  <div class="wrap">
+    <h2>Ready to <em>unblock your SEO</em>?</h2>
+    <p>Complete audit in 3–5 days. A real action plan — not 500 rows of Excel.</p>
+    <div class="final-cta-actions">
+      <a href="#brief" class="btn btn-primary btn-xl">Send a brief →</a>
+      <a href="#brief" class="btn btn-ghost btn-xl">Or book a 15-min call — free</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ─────────────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <div>HIGH RANK LLC · 2025–2026</div>
+    <div>SEO consulting, no fluff</div>
+    <div class="footer-links">
+      <a href="#services">Services</a>
+      <a href="#method">Method</a>
+      <a href="#brief">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach((el) => {
+        el.classList.remove('open');
+        el.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  // Brief form submission
+  document.getElementById('brief-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    document.getElementById('brief').classList.add('sent');
+    document.getElementById('brief').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+</script>
+
+</body>
+</html>
