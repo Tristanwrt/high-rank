@@ -391,11 +391,12 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
 .about-photo-wrap { position: sticky; top: 110px; }
 .about-photo-ph {
-  width: 100%; aspect-ratio: 3/4;
-  background: var(--bg-elev2); border: 1px solid var(--border); border-radius: 12px;
+  width: 100%; aspect-ratio: 1;
+  background: var(--bg-elev); border: 1px solid var(--border); border-radius: 12px;
   overflow: hidden; position: relative;
+  padding: 18px;
 }
-.about-photo-ph img { width: 100%; height: 100%; object-fit: cover; object-position: 55% 20%; display: block; transform: scaleX(-1); }
+.about-photo-ph img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 6px; }
 .about-photo-ph::after { content:''; position:absolute; inset:0; border-radius:12px; box-shadow: inset 0 0 0 1px rgba(229,255,0,.12); pointer-events:none; }
 .about-content h2 { font-size: clamp(28px, 3.2vw, 44px); line-height: 1.1; letter-spacing: -.025em; font-weight: 800; margin-bottom: 6px; }
 .about-content .about-role { font-family: var(--f-mono); font-size: 13px; font-weight: 500; color: var(--accent); margin-bottom: 28px; letter-spacing: .02em; }
@@ -936,7 +937,7 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
       <!-- Photo -->
       <div class="about-photo-wrap reveal">
         <div class="about-photo-ph">
-          <img src="tristan.jpg" alt="Tristan Wiart-Ruant — SEO consultant" />
+          <img src="photo-profil-clean.png" alt="Tristan Wiart-Ruant — SEO consultant" />
         </div>
       </div>
       <!-- Content -->
