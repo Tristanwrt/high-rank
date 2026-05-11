@@ -7,7 +7,7 @@
 <meta name="description" content="HIGH RANK — Independent SEO consulting. AI-powered analysis, expert-driven decisions. AI detects, my expertise decides." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,500;10..48,600;10..48,700;10..48,800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
 /* ── Reset ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -392,15 +392,6 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 .footer a:hover { color: var(--text); }
 .footer-links { display: flex; gap: 18px; }
 
-/* ── Intro panel ── */
-#intro-panel {
-  position: fixed; inset: 0; z-index: 600;
-  background: var(--bg-invert);
-  clip-path: inset(50% 48% round 8px);
-  pointer-events: none;
-  will-change: clip-path, transform;
-}
-
 /* ── Scroll reveals ── */
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s cubic-bezier(0.16,1,0.3,1), transform .7s cubic-bezier(0.16,1,0.3,1); }
 .reveal.in { opacity: 1; transform: none; }
@@ -416,7 +407,6 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 </head>
 <body>
 
-<div id="intro-panel"></div>
 <div id="mouse-glow"></div>
 <div id="progress-bar"></div>
 <canvas id="bg-canvas"></canvas>
@@ -837,24 +827,10 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
   })();
 })();
 
-/* ── Intro panel ── */
-(function(){
-  const panel=document.getElementById('intro-panel'); if(!panel) return;
-  setTimeout(()=>{
-    panel.style.transition='clip-path 0.65s cubic-bezier(0.16,1,0.3,1)';
-    panel.style.clipPath='inset(0% 0% round 0px)';
-  },80);
-  setTimeout(()=>{
-    panel.style.transition='transform 0.55s cubic-bezier(0.7,0,0.3,1)';
-    panel.style.transform='translateY(-100%)';
-  },950);
-  setTimeout(()=>panel.remove(),1550);
-})();
-
 /* ── Hero stagger ── */
 (function(){
   const ease='cubic-bezier(0.16,1,0.3,1)';
-  [['.hero-pill',1350],['.hero h1',1520],['.hero-sub',1680],['.hero-ctas',1820],['.kw-row',1960],['.hero-meta',2100],['.scroll-cue',2400]].forEach(([sel,delay])=>{
+  [['.hero-pill',150],['.hero h1',320],['.hero-sub',480],['.hero-ctas',620],['.kw-row',760],['.hero-meta',920],['.scroll-cue',1300]].forEach(([sel,delay])=>{
     const el=document.querySelector(sel); if(!el) return;
     el.style.opacity='0'; el.style.transform='translateY(24px)';
     setTimeout(()=>{ el.style.transition=`opacity .8s ${ease},transform .8s ${ease}`; el.style.opacity='1'; el.style.transform='none'; },delay);
