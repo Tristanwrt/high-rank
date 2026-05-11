@@ -942,14 +942,40 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
     },delay));
   }
 
-  async function fetchProxy(url, ms=8000){
-    const ctrl=new AbortController();
-    const id=setTimeout(()=>ctrl.abort(),ms);
+  async function fetchHtml(url, ms=9000){
+    /* Try allorigins.win first, fallback to corsproxy.io */
+    const enc=encodeURIComponent(url);
     try{
-      const r=await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`,{signal:ctrl.signal});
-      clearTimeout(id);
-      return await r.json();
-    }catch(e){ clearTimeout(id); throw e; }
+      const ctrl=new AbortController();
+      setTimeout(()=>ctrl.abort(),ms);
+      const r=await fetch(`https://api.allorigins.win/get?url=${enc}`,{signal:ctrl.signal});
+      const d=await r.json();
+      if(d.contents&&d.contents.length>200) return d.contents;
+    }catch(e){}
+    /* fallback */
+    const ctrl2=new AbortController();
+    setTimeout(()=>ctrl2.abort(),ms);
+    const r2=await fetch(`https://corsproxy.io/?${enc}`,{signal:ctrl2.signal});
+    const t=await r2.text();
+    if(t.length>200) return t;
+    throw new Error('empty');
+  }
+
+  async function fetchProxy(url, ms=7000){
+    const enc=encodeURIComponent(url);
+    try{
+      const ctrl=new AbortController();
+      setTimeout(()=>ctrl.abort(),ms);
+      const r=await fetch(`https://api.allorigins.win/get?url=${enc}`,{signal:ctrl.signal});
+      const d=await r.json();
+      if(d.contents) return d.contents;
+    }catch(e){}
+    try{
+      const ctrl2=new AbortController();
+      setTimeout(()=>ctrl2.abort(),ms);
+      const r2=await fetch(`https://corsproxy.io/?${enc}`,{signal:ctrl2.signal});
+      return await r2.text();
+    }catch(e){ throw e; }
   }
 
   async function runAudit(raw){
@@ -965,13 +991,12 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
     /* ── Fetch page ── */
     let doc=null;
     try{
-      const data=await fetchProxy(url,9000);
-      const html=data.contents||'';
-      if(html.length<200) throw new Error('empty');
+      const html=await fetchHtml(url);
       doc=new DOMParser().parseFromString(html,'text/html');
       await addLine(`✓ Page loaded — ${(html.length/1024).toFixed(0)} KB`,'ok',150);
     }catch(e){
-      await addLine(`✗ Cannot reach ${domain} — check the URL`,'error',150);
+      await addLine(`✗ Cannot reach ${domain} — site may block proxies`,'error',150);
+      await addLine('→ Try without www, or check the domain is live','info',200);
       btn.disabled=false; btn.textContent='Run →'; return;
     }
 
@@ -1034,9 +1059,8 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
     await addLine('$ Checking crawl directives...','cmd',150);
 
     try{
-      const rb=await fetchProxy(`${url}/robots.txt`,6000);
-      const rbc=rb.contents||'';
-      if(rbc.length>20&&!rbc.toLowerCase().includes('not found')&&!rbc.includes('<html')){
+      const rbc=await fetchProxy(`${url}/robots.txt`,6000);
+      if(rbc&&rbc.length>20&&!rbc.toLowerCase().includes('not found')&&!rbc.trimStart().startsWith('<')){
         const hasSm=rbc.toLowerCase().includes('sitemap:');
         await addLine(`✓ robots.txt found${hasSm?' — Sitemap: directive present':' — no Sitemap: directive'}`,hasSm?'ok':'warn',300);
       }else{
@@ -1045,9 +1069,8 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
     }catch(e){ await addLine('⚠  robots.txt check failed','warn',300); }
 
     try{
-      const sm=await fetchProxy(`${url}/sitemap.xml`,6000);
-      const smc=sm.contents||'';
-      if(smc.includes('<urlset')||smc.includes('<sitemapindex')){
+      const smc=await fetchProxy(`${url}/sitemap.xml`,6000);
+      if(smc&&(smc.includes('<urlset')||smc.includes('<sitemapindex'))){
         const n=(smc.match(/<url>/g)||[]).length;
         const ni=(smc.match(/<sitemap>/g)||[]).length;
         await addLine(ni>0?`✓ Sitemap index — ${ni} child sitemaps`:`✓ sitemap.xml — ${n} URLs`,'ok',300);
