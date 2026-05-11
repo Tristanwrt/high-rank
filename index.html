@@ -364,17 +364,6 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 .reassure-cell p { color: var(--text-mute); font-size: 15px; line-height: 1.55; }
 @media (max-width: 800px) { .reassure-grid { grid-template-columns: 1fr; } }
 
-/* ── Manifesto chapter ── */
-.manifesto-chapter { height: 350vh; position: relative; }
-.manifesto-sticky { position: sticky; top: 30px; height: calc(100vh - 30px); display: flex; align-items: center; justify-content: center; overflow: hidden; z-index: 1; }
-.manifesto-panel { position: absolute; inset: 0; background: var(--bg-invert); clip-path: inset(50% 48% round 6px); will-change: clip-path; }
-.manifesto-content { position: relative; z-index: 1; text-align: center; padding: 0 28px; max-width: 900px; }
-.manifesto-quote { font-size: clamp(52px, 8vw, 110px); line-height: .95; letter-spacing: -.045em; font-weight: 800; text-wrap: balance; margin-bottom: 28px; }
-.mword { display: inline-block; opacity: 0; transform: translateY(36px); transition: opacity .6s cubic-bezier(0.16,1,0.3,1), transform .6s cubic-bezier(0.16,1,0.3,1); color: var(--text-on-invert); }
-.mword.accent { color: var(--accent); }
-.mword.visible { opacity: 1; transform: none; }
-.manifesto-sub { font-size: 18px; color: var(--text-on-invert-mute); max-width: 52ch; margin: 0 auto; line-height: 1.55; opacity: 0; transform: translateY(20px); transition: opacity .6s cubic-bezier(0.16,1,0.3,1), transform .6s cubic-bezier(0.16,1,0.3,1); }
-.manifesto-sub.visible { opacity: 1; transform: none; }
 
 /* ── FAQ ── */
 .faq-list { display: flex; flex-direction: column; max-width: 920px; margin: 0 auto; border-top: 1px solid var(--border); }
@@ -421,7 +410,7 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
   .section { padding: 72px 0; }
   .hero { padding: 100px 0 60px; }
   .final-cta { padding: 80px 0 96px; }
-  .manifesto-quote { font-size: clamp(40px, 11vw, 80px); }
+
 }
 </style>
 </head>
@@ -634,20 +623,6 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
     <p class="diff-conclusion reveal">AI lets me process volumes a human can't. My expertise turns that into a plan that pays.</p>
   </div>
 </section>
-
-<!-- ── Manifesto chapter ── -->
-<div class="manifesto-chapter" id="manifesto-chapter">
-  <div class="manifesto-sticky">
-    <div class="manifesto-panel" id="manifesto-panel"></div>
-    <div class="manifesto-content">
-      <p class="manifesto-quote">
-        <span class="mword">AI</span>&#32;<span class="mword accent">detects.</span><br>
-        <span class="mword">My</span>&#32;<span class="mword">expertise</span>&#32;<span class="mword accent">decides.</span>
-      </p>
-      <p class="manifesto-sub">That's the whole pitch. No shortcut, no fluff, no AI-written reports you'll never read.</p>
-    </div>
-  </div>
-</div>
 
 <!-- ── Audit terminal ── -->
 <section class="section" id="audit-demo">
@@ -916,10 +891,6 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
   const bar=document.getElementById('progress-bar');
   const nav=document.getElementById('nav');
   const probChapter=document.getElementById('problem');
-  const manifChapter=document.getElementById('manifesto-chapter');
-  const manifPanel=document.getElementById('manifesto-panel');
-  const mwords=document.querySelectorAll('.mword');
-  const manifSub=document.querySelector('.manifesto-sub');
   const cards=document.querySelectorAll('.prob-card');
   const dots=document.querySelectorAll('.problem-counter-dot');
   const probCount=document.getElementById('prob-count');
@@ -951,17 +922,6 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
     }
     const fill=document.querySelector('.prob-card.active .prob-card-bar-fill');
     if(fill) fill.style.width=(beatProg*100)+'%';
-
-    /* manifesto */
-    const mp=getProgress(manifChapter);
-    if(manifPanel){
-      const ep=Math.min(1,mp/0.35);
-      const iV=(50-50*ep).toFixed(1), iH=(48-48*ep).toFixed(1), r=Math.max(0,6-6*ep).toFixed(1);
-      manifPanel.style.clipPath=`inset(${iV}% ${iH}% round ${r}px)`;
-    }
-    const wp=Math.max(0,(mp-0.3)/0.55);
-    [0,0.18,0.34,0.52,0.68].forEach((th,i)=>{ if(mwords[i]) mwords[i].classList.toggle('visible',wp>=th); });
-    if(manifSub) manifSub.classList.toggle('visible',mp>0.88);
 
     /* scroll reveals */
     document.querySelectorAll('.reveal:not(.in)').forEach(el=>{
