@@ -184,8 +184,8 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 .hero-sub { font-size: clamp(17px, 1.6vw, 20px); color: var(--text-mute); max-width: 54ch; margin-bottom: 44px; line-height: 1.55; }
 .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
 .kw-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 40px; max-width: 680px; }
-.kw { font-family: var(--f-mono); font-size: 12px; font-weight: 500; padding: 5px 10px; background: var(--bg-elev); border: 1px solid var(--border); color: var(--text-mute); border-radius: 4px; }
-.kw.hl { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+.kw { font-family: var(--f-mono); font-size: 12px; font-weight: 500; padding: 5px 10px; background: rgba(229,255,0,.07); border: 1px solid rgba(229,255,0,.22); color: rgba(229,255,0,.65); border-radius: 4px; transition: background .15s, border-color .15s, color .15s; cursor: default; }
+.kw:hover { background: rgba(229,255,0,.13); border-color: rgba(229,255,0,.45); color: var(--accent); }
 .hero-meta { display: flex; gap: 44px; margin-top: 56px; flex-wrap: wrap; }
 .hero-meta-item { display: flex; flex-direction: column; gap: 3px; }
 .hero-meta-item b { font-family: var(--f-display); font-size: 32px; font-weight: 800; letter-spacing: -.03em; color: var(--text); }
@@ -200,14 +200,6 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 @keyframes cue-fade { 0%,100%{opacity:.35} 50%{opacity:1} }
 @keyframes cue-drop { 0%{transform:scaleY(0);transform-origin:top} 60%,100%{transform:scaleY(1);transform-origin:top} }
 
-/* ── Social proof band ── */
-.proof-band { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 24px 0; background: var(--bg-elev); position: relative; z-index: 1; }
-.proof-band-inner { display: flex; align-items: center; gap: 0; flex-wrap: wrap; justify-content: space-between; }
-.proof-item { display: flex; flex-direction: column; gap: 2px; padding: 8px 0; }
-.proof-v { font-family: var(--f-display); font-size: 22px; font-weight: 800; color: var(--accent); line-height: 1; }
-.proof-l { font-family: var(--f-mono); font-size: 11px; font-weight: 500; color: var(--text-faint); letter-spacing: .04em; }
-.proof-sep { width: 1px; height: 36px; background: var(--border); }
-@media (max-width: 700px) { .proof-band-inner { gap: 24px; } .proof-sep { display: none; } }
 
 /* ── Problem chapter ── */
 .chapter { position: relative; }
@@ -459,10 +451,10 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 .footer-links { display: flex; gap: 18px; }
 
 /* ── Logo cloud ── */
-.logo-cloud { padding: 32px 0; border-top: 1px solid rgba(229,255,0,.15); border-bottom: 1px solid rgba(229,255,0,.08); overflow: hidden; position: relative; z-index: 1; background: rgba(229,255,0,.03); }
-.logo-cloud-head { text-align: center; margin-bottom: 20px; }
+.logo-cloud { padding: 22px 0 16px; border-top: 1px solid rgba(229,255,0,.15); overflow: hidden; position: relative; z-index: 1; background: rgba(229,255,0,.03); }
+.logo-cloud-head { text-align: center; margin-bottom: 14px; }
 .logo-cloud-overflow { overflow: hidden; -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); }
-.logo-track { display: flex; min-width: max-content; align-items: center; gap: 52px; animation: logo-scroll 34s linear infinite; }
+.logo-track { display: flex; min-width: max-content; align-items: center; gap: 38px; animation: logo-scroll 34s linear infinite; }
 .logo-cloud-overflow:hover .logo-track { animation-play-state: paused; }
 .logo-item { font-size: 13px; font-weight: 700; color: rgba(229,255,0,.55); letter-spacing: .04em; user-select: none; transition: color .2s; cursor: default; white-space: nowrap; }
 .logo-item:hover { color: var(--accent); }
@@ -594,18 +586,6 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
   </div>
 </section>
 
-<!-- ── Social proof bandeau ── -->
-<div class="proof-band">
-  <div class="wrap proof-band-inner">
-    <div class="proof-item"><span class="proof-v">+180%</span><span class="proof-l">organic traffic, SaaS client</span></div>
-    <div class="proof-sep"></div>
-    <div class="proof-item"><span class="proof-v">#1</span><span class="proof-l">ranked in 3 months, e-commerce</span></div>
-    <div class="proof-sep"></div>
-    <div class="proof-item"><span class="proof-v">3–5 days</span><span class="proof-l">audit delivery</span></div>
-    <div class="proof-sep"></div>
-    <div class="proof-item"><span class="proof-v">20+</span><span class="proof-l">industries covered</span></div>
-  </div>
-</div>
 
 <!-- ── Logo cloud ── -->
 <!-- Replace logo names with real client names when available -->
