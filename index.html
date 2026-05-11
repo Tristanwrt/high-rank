@@ -264,6 +264,7 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 .t-line.ok   { color: #4ADE80; }
 .t-line.warn { color: #F59E0B; }
 .t-line.score { font-family: var(--f-display); color: var(--accent); font-size: 15px; font-weight: 800; }
+.t-line.error { color: #F87171; }
 .t-line.result { color: var(--text); }
 .t-line.dim  { color: var(--text-faint); }
 .t-line.empty { height: 8px; }
@@ -477,6 +478,31 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
   <div class="scroll-cue"><span>Scroll</span><div class="scroll-cue-arrow"></div></div>
 </section>
 
+<!-- ── Audit terminal ── -->
+<section class="section" id="audit-demo">
+  <div class="wrap">
+    <div class="section-head reveal" style="margin-inline:auto;text-align:center">
+      <div class="eyebrow" style="justify-content:center">Live audit</div>
+      <h2>Drop your URL. See what's broken.</h2>
+      <p>Real checks — title, meta, H1, sitemap, Core Web Vitals and more.</p>
+    </div>
+    <div class="terminal reveal">
+      <div class="terminal-bar">
+        <span class="t-dot"></span><span class="t-dot"></span><span class="t-dot"></span>
+        <span class="t-title">hr-audit — terminal</span>
+      </div>
+      <div class="terminal-body" id="terminal-body">
+        <div class="t-line dim">// Enter your domain below and press Run<span class="t-cursor"></span></div>
+      </div>
+      <div class="terminal-input-row">
+        <span class="t-prompt">audit $</span>
+        <input class="t-input" id="t-input" type="text" placeholder="yourdomain.com" autocomplete="off" spellcheck="false" />
+        <button class="t-run" id="t-run">Run →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ── Problem chapter ── -->
 <div class="chapter problem-chapter" id="problem">
   <div class="chapter-sticky">
@@ -615,31 +641,6 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
       <div class="diff-cell reveal" style="transition-delay:.3s"><div class="diff-arrow">→</div><div><h3>Content gaps vs your top-3 competitors.</h3><p>What they rank on that you don't even cover. Prioritized by search intent and difficulty.</p></div></div>
     </div>
     <p class="diff-conclusion reveal">AI lets me process volumes a human can't. My expertise turns that into a plan that pays.</p>
-  </div>
-</section>
-
-<!-- ── Audit terminal ── -->
-<section class="section" id="audit-demo">
-  <div class="wrap">
-    <div class="section-head reveal" style="margin-inline:auto;text-align:center">
-      <div class="eyebrow" style="justify-content:center">See it in action</div>
-      <h2>Enter your URL. See what I'd find.</h2>
-      <p>This is what the first few minutes of an audit look like.</p>
-    </div>
-    <div class="terminal reveal">
-      <div class="terminal-bar">
-        <span class="t-dot"></span><span class="t-dot"></span><span class="t-dot"></span>
-        <span class="t-title">hr-audit — terminal</span>
-      </div>
-      <div class="terminal-body" id="terminal-body">
-        <div class="t-line dim">// Enter a domain below and press Run<span class="t-cursor"></span></div>
-      </div>
-      <div class="terminal-input-row">
-        <span class="t-prompt">audit $</span>
-        <input class="t-input" id="t-input" type="text" placeholder="yourdomain.com" autocomplete="off" spellcheck="false" />
-        <button class="t-run" id="t-run">Run →</button>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -941,37 +942,154 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
     },delay));
   }
 
+  async function fetchProxy(url, ms=8000){
+    const ctrl=new AbortController();
+    const id=setTimeout(()=>ctrl.abort(),ms);
+    try{
+      const r=await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`,{signal:ctrl.signal});
+      clearTimeout(id);
+      return await r.json();
+    }catch(e){ clearTimeout(id); throw e; }
+  }
+
   async function runAudit(raw){
     body.innerHTML='';
-    const domain=(raw||'example.com').replace(/^https?:\/\//,'').replace(/\/$/,'').trim()||'example.com';
-    const lines=[
-      {t:`$ hr-audit --url https://${domain}`,c:'cmd',d:0},
-      {t:`→ Resolving ${domain}...`,c:'info',d:380},
-      {t:`→ Fetching robots.txt`,c:'info',d:740},
-      {t:`→ Parsing sitemap.xml — found 847 URLs`,c:'info',d:1060},
-      {t:``,c:'',d:1300},
-      {t:`$ Running technical checks...`,c:'cmd',d:1500},
-      {t:`⚠  23 pages — missing meta description`,c:'warn',d:2100},
-      {t:`⚠  Duplicate H1 on 8 URLs`,c:'warn',d:2500},
-      {t:`⚠  Core Web Vitals: LCP > 4.2s on mobile`,c:'warn',d:2900},
-      {t:`⚠  235 images — no alt attribute`,c:'warn',d:3300},
-      {t:``,c:'',d:3550},
-      {t:`$ Scanning keyword cannibalization...`,c:'cmd',d:3750},
-      {t:`⚠  14 cannibalizing page pairs detected`,c:'warn',d:4350},
-      {t:`→ /blog/seo vs /seo-services — overlap: "SEO agency"`,c:'info',d:4750},
-      {t:``,c:'',d:5050},
-      {t:`$ Finding quick wins...`,c:'cmd',d:5250},
-      {t:`✓ 6 keywords ranking #11–20 — one push to top 10`,c:'ok',d:5800},
-      {t:`✓ 3 pages: strong internal linking opportunity`,c:'ok',d:6200},
-      {t:`✓ 12 thin pages — merge or expand candidates`,c:'ok',d:6600},
-      {t:``,c:'',d:6900},
-      {t:`──────────────────────────────────────────────`,c:'dim',d:7100},
-      {t:`AUDIT SCORE   48 / 100`,c:'score',d:7600},
-      {t:`Issues found  31  ·  Quick wins  9  ·  Est. uplift  +60–120%`,c:'result',d:8000},
-      {t:`──────────────────────────────────────────────`,c:'dim',d:8200},
-      {t:`→ Full report delivered in 3–5 business days.`,c:'info',d:8700},
-    ];
-    for(const l of lines) await addLine(l.t,l.c,l.d);
+    const domain=(raw||'').replace(/^https?:\/\//,'').replace(/\/$/,'').trim();
+    if(!domain){ await addLine('⚠  Enter a domain first','warn',0); return; }
+    const url=`https://${domain}`;
+    btn.disabled=true; btn.textContent='Running…';
+
+    await addLine(`$ hr-audit --url ${url}`,'cmd',0);
+    await addLine(`→ Fetching ${domain}...`,'info',250);
+
+    /* ── Fetch page ── */
+    let doc=null;
+    try{
+      const data=await fetchProxy(url,9000);
+      const html=data.contents||'';
+      if(html.length<200) throw new Error('empty');
+      doc=new DOMParser().parseFromString(html,'text/html');
+      await addLine(`✓ Page loaded — ${(html.length/1024).toFixed(0)} KB`,'ok',150);
+    }catch(e){
+      await addLine(`✗ Cannot reach ${domain} — check the URL`,'error',150);
+      btn.disabled=false; btn.textContent='Run →'; return;
+    }
+
+    await addLine('','',100);
+    await addLine('$ On-page checks...','cmd',150);
+
+    /* 1. Title */
+    const title=doc.querySelector('title')?.textContent?.trim()||'';
+    if(!title)                    await addLine('✗ No <title> tag','error',260);
+    else if(title.length<30)      await addLine(`⚠  Title too short (${title.length} chars) — aim 50–60`,'warn',260);
+    else if(title.length>65)      await addLine(`⚠  Title too long (${title.length} chars) — truncated in SERPs`,'warn',260);
+    else                          await addLine(`✓ Title OK (${title.length} chars)`,'ok',260);
+
+    /* 2. Meta description */
+    const desc=doc.querySelector('meta[name="description"]')?.getAttribute('content')?.trim()||'';
+    if(!desc)                     await addLine('✗ No meta description','error',260);
+    else if(desc.length<70)       await addLine(`⚠  Meta desc short (${desc.length} chars) — aim 120–160`,'warn',260);
+    else if(desc.length>165)      await addLine(`⚠  Meta desc too long (${desc.length} chars)`,'warn',260);
+    else                          await addLine(`✓ Meta description OK (${desc.length} chars)`,'ok',260);
+
+    /* 3. H1 */
+    const h1s=doc.querySelectorAll('h1');
+    if(h1s.length===0)            await addLine('✗ No H1 tag found','error',260);
+    else if(h1s.length>1)         await addLine(`⚠  ${h1s.length} H1 tags — only one expected`,'warn',260);
+    else                          await addLine(`✓ H1 — "${h1s[0].textContent.trim().slice(0,52)}"`,'ok',260);
+
+    /* 4. Canonical */
+    const canon=doc.querySelector('link[rel="canonical"]')?.getAttribute('href')||'';
+    if(!canon)                    await addLine('⚠  No canonical tag — duplicate content risk','warn',260);
+    else                          await addLine(`✓ Canonical set`,'ok',260);
+
+    /* 5. OG tags */
+    const ogT=doc.querySelector('meta[property="og:title"]')?.getAttribute('content')||'';
+    const ogD=doc.querySelector('meta[property="og:description"]')?.getAttribute('content')||'';
+    if(!ogT&&!ogD)                await addLine('⚠  No Open Graph tags — poor social previews','warn',260);
+    else if(!ogT||!ogD)           await addLine('⚠  Incomplete OG tags (og:title or og:description)','warn',260);
+    else                          await addLine('✓ Open Graph tags present','ok',260);
+
+    /* 6. Images alt */
+    const imgs=[...doc.querySelectorAll('img')];
+    const noAlt=imgs.filter(i=>!i.getAttribute('alt')&&i.getAttribute('alt')!=='').length;
+    if(imgs.length>0){
+      if(noAlt>0)                 await addLine(`⚠  ${noAlt}/${imgs.length} images missing alt attribute`,'warn',260);
+      else                        await addLine(`✓ All ${imgs.length} images have alt text`,'ok',260);
+    }
+
+    /* 7. Structured data */
+    const schemas=doc.querySelectorAll('script[type="application/ld+json"]');
+    if(schemas.length===0)        await addLine('⚠  No structured data (Schema.org)','warn',260);
+    else                          await addLine(`✓ Structured data — ${schemas.length} block${schemas.length>1?'s':''}`,'ok',260);
+
+    /* 8. Robots meta */
+    const robotsMeta=doc.querySelector('meta[name="robots"]')?.getAttribute('content')||'';
+    if(robotsMeta.toLowerCase().includes('noindex'))
+                                  await addLine('✗ Page is noindex — invisible to Google','error',260);
+    else                          await addLine('✓ Page is indexable','ok',260);
+
+    /* ── robots.txt + sitemap ── */
+    await addLine('','',100);
+    await addLine('$ Checking crawl directives...','cmd',150);
+
+    try{
+      const rb=await fetchProxy(`${url}/robots.txt`,6000);
+      const rbc=rb.contents||'';
+      if(rbc.length>20&&!rbc.toLowerCase().includes('not found')&&!rbc.includes('<html')){
+        const hasSm=rbc.toLowerCase().includes('sitemap:');
+        await addLine(`✓ robots.txt found${hasSm?' — Sitemap: directive present':' — no Sitemap: directive'}`,hasSm?'ok':'warn',300);
+      }else{
+        await addLine('⚠  robots.txt missing or inaccessible','warn',300);
+      }
+    }catch(e){ await addLine('⚠  robots.txt check failed','warn',300); }
+
+    try{
+      const sm=await fetchProxy(`${url}/sitemap.xml`,6000);
+      const smc=sm.contents||'';
+      if(smc.includes('<urlset')||smc.includes('<sitemapindex')){
+        const n=(smc.match(/<url>/g)||[]).length;
+        const ni=(smc.match(/<sitemap>/g)||[]).length;
+        await addLine(ni>0?`✓ Sitemap index — ${ni} child sitemaps`:`✓ sitemap.xml — ${n} URLs`,'ok',300);
+      }else{
+        await addLine('⚠  sitemap.xml not found at /sitemap.xml','warn',300);
+      }
+    }catch(e){ await addLine('⚠  Sitemap check failed','warn',300); }
+
+    /* ── PageSpeed ── */
+    await addLine('','',100);
+    await addLine('$ Core Web Vitals (mobile)...','cmd',150);
+    try{
+      const ctrl=new AbortController();
+      const tid=setTimeout(()=>ctrl.abort(),14000);
+      const ps=await fetch(
+        `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(url)}&strategy=mobile&category=performance`,
+        {signal:ctrl.signal}
+      );
+      clearTimeout(tid);
+      const psd=await ps.json();
+      const score=Math.round((psd.lighthouseResult?.categories?.performance?.score||0)*100);
+      const lcp=psd.lighthouseResult?.audits?.['largest-contentful-paint']?.displayValue||'n/a';
+      const cls=psd.lighthouseResult?.audits?.['cumulative-layout-shift']?.displayValue||'n/a';
+      const fcp=psd.lighthouseResult?.audits?.['first-contentful-paint']?.displayValue||'n/a';
+      const sc=score>=90?'ok':score>=50?'warn':'error';
+      const ic=score>=90?'✓':score>=50?'⚠ ':'✗';
+      await addLine(`${ic} Perf ${score}/100  ·  LCP ${lcp}  ·  CLS ${cls}  ·  FCP ${fcp}`,sc,400);
+    }catch(e){
+      await addLine('→ PageSpeed timed out — check pagespeed.web.dev','info',400);
+    }
+
+    /* ── Summary ── */
+    const allLines=[...body.querySelectorAll('.t-line')];
+    const nOk=allLines.filter(l=>l.classList.contains('ok')).length;
+    const nWarn=allLines.filter(l=>l.classList.contains('warn')).length;
+    const nErr=allLines.filter(l=>l.classList.contains('error')).length;
+    await addLine('','',150);
+    await addLine('──────────────────────────────────────────────','dim',150);
+    await addLine(`${nOk} passed  ·  ${nWarn} warnings  ·  ${nErr} errors`,'score',300);
+    await addLine('→ Full audit adds backlinks, keywords gaps, 40+ checks.','info',300);
+
+    btn.disabled=false; btn.textContent='Run →';
   }
 
   btn.addEventListener('click',()=>runAudit(input.value));
