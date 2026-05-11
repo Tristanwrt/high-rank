@@ -942,42 +942,6 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
     },delay));
   }
 
-  async function fetchHtml(url, ms=9000){
-    /* Try allorigins.win first, fallback to corsproxy.io */
-    const enc=encodeURIComponent(url);
-    try{
-      const ctrl=new AbortController();
-      setTimeout(()=>ctrl.abort(),ms);
-      const r=await fetch(`https://api.allorigins.win/get?url=${enc}`,{signal:ctrl.signal});
-      const d=await r.json();
-      if(d.contents&&d.contents.length>200) return d.contents;
-    }catch(e){}
-    /* fallback */
-    const ctrl2=new AbortController();
-    setTimeout(()=>ctrl2.abort(),ms);
-    const r2=await fetch(`https://corsproxy.io/?${enc}`,{signal:ctrl2.signal});
-    const t=await r2.text();
-    if(t.length>200) return t;
-    throw new Error('empty');
-  }
-
-  async function fetchProxy(url, ms=7000){
-    const enc=encodeURIComponent(url);
-    try{
-      const ctrl=new AbortController();
-      setTimeout(()=>ctrl.abort(),ms);
-      const r=await fetch(`https://api.allorigins.win/get?url=${enc}`,{signal:ctrl.signal});
-      const d=await r.json();
-      if(d.contents) return d.contents;
-    }catch(e){}
-    try{
-      const ctrl2=new AbortController();
-      setTimeout(()=>ctrl2.abort(),ms);
-      const r2=await fetch(`https://corsproxy.io/?${enc}`,{signal:ctrl2.signal});
-      return await r2.text();
-    }catch(e){ throw e; }
-  }
-
   async function runAudit(raw){
     body.innerHTML='';
     const domain=(raw||'').replace(/^https?:\/\//,'').replace(/\/$/,'').trim();
@@ -986,131 +950,116 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
     btn.disabled=true; btn.textContent='Running…';
 
     await addLine(`$ hr-audit --url ${url}`,'cmd',0);
-    await addLine(`→ Fetching ${domain}...`,'info',250);
+    await addLine('→ Launching Lighthouse — rendering the page (~15s)...','info',300);
 
-    /* ── Fetch page ── */
-    let doc=null;
+    /* ── Single Lighthouse call: perf + SEO + best-practices ── */
+    let lh=null;
     try{
-      const html=await fetchHtml(url);
-      doc=new DOMParser().parseFromString(html,'text/html');
-      await addLine(`✓ Page loaded — ${(html.length/1024).toFixed(0)} KB`,'ok',150);
+      const ctrl=new AbortController();
+      setTimeout(()=>ctrl.abort(),28000);
+      const r=await fetch(
+        `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(url)}&strategy=mobile&category=performance&category=seo&category=best-practices`,
+        {signal:ctrl.signal}
+      );
+      const d=await r.json();
+      if(d.error) throw new Error(d.error.message||'API error');
+      if(!d.lighthouseResult) throw new Error('No data returned');
+      lh=d.lighthouseResult;
+      await addLine(`✓ Lighthouse ${lh.lighthouseVersion} — analysis complete`,'ok',200);
     }catch(e){
-      await addLine(`✗ Cannot reach ${domain} — site may block proxies`,'error',150);
-      await addLine('→ Try without www, or check the domain is live','info',200);
+      await addLine(`✗ ${e.message||'Analysis failed — verify the domain'}`, 'error',200);
       btn.disabled=false; btn.textContent='Run →'; return;
     }
 
-    await addLine('','',100);
-    await addLine('$ On-page checks...','cmd',150);
+    const a=lh.audits||{};
+    const cats=lh.categories||{};
 
-    /* 1. Title */
-    const title=doc.querySelector('title')?.textContent?.trim()||'';
-    if(!title)                    await addLine('✗ No <title> tag','error',260);
-    else if(title.length<30)      await addLine(`⚠  Title too short (${title.length} chars) — aim 50–60`,'warn',260);
-    else if(title.length>65)      await addLine(`⚠  Title too long (${title.length} chars) — truncated in SERPs`,'warn',260);
-    else                          await addLine(`✓ Title OK (${title.length} chars)`,'ok',260);
+    /* ── SEO audits ── */
+    await addLine('','',80);
+    await addLine('$ SEO checks...','cmd',120);
 
-    /* 2. Meta description */
-    const desc=doc.querySelector('meta[name="description"]')?.getAttribute('content')?.trim()||'';
-    if(!desc)                     await addLine('✗ No meta description','error',260);
-    else if(desc.length<70)       await addLine(`⚠  Meta desc short (${desc.length} chars) — aim 120–160`,'warn',260);
-    else if(desc.length>165)      await addLine(`⚠  Meta desc too long (${desc.length} chars)`,'warn',260);
-    else                          await addLine(`✓ Meta description OK (${desc.length} chars)`,'ok',260);
-
-    /* 3. H1 */
-    const h1s=doc.querySelectorAll('h1');
-    if(h1s.length===0)            await addLine('✗ No H1 tag found','error',260);
-    else if(h1s.length>1)         await addLine(`⚠  ${h1s.length} H1 tags — only one expected`,'warn',260);
-    else                          await addLine(`✓ H1 — "${h1s[0].textContent.trim().slice(0,52)}"`,'ok',260);
-
-    /* 4. Canonical */
-    const canon=doc.querySelector('link[rel="canonical"]')?.getAttribute('href')||'';
-    if(!canon)                    await addLine('⚠  No canonical tag — duplicate content risk','warn',260);
-    else                          await addLine(`✓ Canonical set`,'ok',260);
-
-    /* 5. OG tags */
-    const ogT=doc.querySelector('meta[property="og:title"]')?.getAttribute('content')||'';
-    const ogD=doc.querySelector('meta[property="og:description"]')?.getAttribute('content')||'';
-    if(!ogT&&!ogD)                await addLine('⚠  No Open Graph tags — poor social previews','warn',260);
-    else if(!ogT||!ogD)           await addLine('⚠  Incomplete OG tags (og:title or og:description)','warn',260);
-    else                          await addLine('✓ Open Graph tags present','ok',260);
-
-    /* 6. Images alt */
-    const imgs=[...doc.querySelectorAll('img')];
-    const noAlt=imgs.filter(i=>!i.getAttribute('alt')&&i.getAttribute('alt')!=='').length;
-    if(imgs.length>0){
-      if(noAlt>0)                 await addLine(`⚠  ${noAlt}/${imgs.length} images missing alt attribute`,'warn',260);
-      else                        await addLine(`✓ All ${imgs.length} images have alt text`,'ok',260);
+    function al(audit,fail,pass){
+      if(!audit) return;
+      const s=audit.score;
+      if(s===1||s===null) return {cls:'ok',text:`✓ ${pass}`};
+      const dv=audit.displayValue?` — ${audit.displayValue}`:'';
+      return {cls:s===0?'error':'warn',text:`${s===0?'✗':'⚠ '} ${fail}${dv}`};
     }
 
-    /* 7. Structured data */
-    const schemas=doc.querySelectorAll('script[type="application/ld+json"]');
-    if(schemas.length===0)        await addLine('⚠  No structured data (Schema.org)','warn',260);
-    else                          await addLine(`✓ Structured data — ${schemas.length} block${schemas.length>1?'s':''}`,'ok',260);
+    const seoChecks=[
+      al(a['document-title'],'Missing <title> tag','Title tag present'),
+      al(a['meta-description'],'Meta description missing or invalid','Meta description OK'),
+      al(a['is-crawlable'],'Page blocked from indexing (noindex)','Page is indexable'),
+      al(a['canonical'],'Canonical URL issue','Canonical URL valid'),
+      al(a['robots-txt'],'robots.txt invalid or missing','robots.txt valid'),
+      al(a['hreflang'],'hreflang issues detected','hreflang correct'),
+      a['image-alt']?.score<1
+        ? {cls:'warn',text:`⚠  ${a['image-alt'].details?.items?.length||'?'} image(s) missing alt attribute`}
+        : {cls:'ok',text:'✓ All images have alt text'},
+      al(a['link-text'],'Non-descriptive anchor text found','Link text descriptive'),
+      al(a['tap-targets'],'Tap targets too small on mobile','Tap targets OK'),
+    ];
+    for(const c of seoChecks) if(c) await addLine(c.text,c.cls,240);
 
-    /* 8. Robots meta */
-    const robotsMeta=doc.querySelector('meta[name="robots"]')?.getAttribute('content')||'';
-    if(robotsMeta.toLowerCase().includes('noindex'))
-                                  await addLine('✗ Page is noindex — invisible to Google','error',260);
-    else                          await addLine('✓ Page is indexable','ok',260);
+    /* ── Performance + CWV ── */
+    await addLine('','',80);
+    await addLine('$ Core Web Vitals (mobile)...','cmd',120);
 
-    /* ── robots.txt + sitemap ── */
-    await addLine('','',100);
-    await addLine('$ Checking crawl directives...','cmd',150);
+    const perfScore=Math.round((cats.performance?.score||0)*100);
+    const seoScore=Math.round((cats.seo?.score||0)*100);
+    const lcp=a['largest-contentful-paint']?.displayValue||'n/a';
+    const clsV=a['cumulative-layout-shift']?.displayValue||'n/a';
+    const fcp=a['first-contentful-paint']?.displayValue||'n/a';
+    const tbt=a['total-blocking-time']?.displayValue||'n/a';
+    const pSt=perfScore>=90?'ok':perfScore>=50?'warn':'error';
+    const pIc=perfScore>=90?'✓':perfScore>=50?'⚠ ':'✗';
+    await addLine(`${pIc} Performance ${perfScore}/100  ·  SEO score ${seoScore}/100`,pSt,240);
+    await addLine(`→ LCP ${lcp}  ·  CLS ${clsV}  ·  FCP ${fcp}  ·  TBT ${tbt}`,'info',240);
 
-    try{
-      const rbc=await fetchProxy(`${url}/robots.txt`,6000);
-      if(rbc&&rbc.length>20&&!rbc.toLowerCase().includes('not found')&&!rbc.trimStart().startsWith('<')){
-        const hasSm=rbc.toLowerCase().includes('sitemap:');
-        await addLine(`✓ robots.txt found${hasSm?' — Sitemap: directive present':' — no Sitemap: directive'}`,hasSm?'ok':'warn',300);
-      }else{
-        await addLine('⚠  robots.txt missing or inaccessible','warn',300);
+    /* ── Top performance quick wins ── */
+    const opps=[
+      a['render-blocking-resources'],a['unused-javascript'],a['unused-css-rules'],
+      a['uses-optimized-images'],a['uses-webp-images'],a['uses-text-compression'],
+      a['efficient-animated-content'],a['uses-long-cache-ttl'],
+    ].filter(x=>x&&x.score!==null&&x.score<1)
+     .sort((b,c)=>(c.details?.overallSavingsMs||0)-(b.details?.overallSavingsMs||0))
+     .slice(0,3);
+    if(opps.length){
+      await addLine('','',80);
+      await addLine('$ Performance quick wins...','cmd',120);
+      for(const op of opps){
+        const save=op.details?.overallSavingsMs?` (~${Math.round(op.details.overallSavingsMs)}ms saved)`:'';
+        await addLine(`⚡ ${op.title}${save}`,'warn',240);
       }
-    }catch(e){ await addLine('⚠  robots.txt check failed','warn',300); }
+    }
 
+    /* ── Sitemap (best-effort) ── */
+    await addLine('','',80);
+    await addLine('$ Checking sitemap.xml...','cmd',120);
     try{
-      const smc=await fetchProxy(`${url}/sitemap.xml`,6000);
-      if(smc&&(smc.includes('<urlset')||smc.includes('<sitemapindex'))){
-        const n=(smc.match(/<url>/g)||[]).length;
-        const ni=(smc.match(/<sitemap>/g)||[]).length;
+      const ctrl2=new AbortController();
+      setTimeout(()=>ctrl2.abort(),7000);
+      const sr=await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(`${url}/sitemap.xml`)}`,{signal:ctrl2.signal});
+      const sd=await sr.json();
+      const sc=sd.contents||'';
+      if(sc.includes('<urlset')||sc.includes('<sitemapindex')){
+        const n=(sc.match(/<url>/g)||[]).length;
+        const ni=(sc.match(/<sitemap>/g)||[]).length;
         await addLine(ni>0?`✓ Sitemap index — ${ni} child sitemaps`:`✓ sitemap.xml — ${n} URLs`,'ok',300);
       }else{
         await addLine('⚠  sitemap.xml not found at /sitemap.xml','warn',300);
       }
-    }catch(e){ await addLine('⚠  Sitemap check failed','warn',300); }
-
-    /* ── PageSpeed ── */
-    await addLine('','',100);
-    await addLine('$ Core Web Vitals (mobile)...','cmd',150);
-    try{
-      const ctrl=new AbortController();
-      const tid=setTimeout(()=>ctrl.abort(),14000);
-      const ps=await fetch(
-        `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(url)}&strategy=mobile&category=performance`,
-        {signal:ctrl.signal}
-      );
-      clearTimeout(tid);
-      const psd=await ps.json();
-      const score=Math.round((psd.lighthouseResult?.categories?.performance?.score||0)*100);
-      const lcp=psd.lighthouseResult?.audits?.['largest-contentful-paint']?.displayValue||'n/a';
-      const cls=psd.lighthouseResult?.audits?.['cumulative-layout-shift']?.displayValue||'n/a';
-      const fcp=psd.lighthouseResult?.audits?.['first-contentful-paint']?.displayValue||'n/a';
-      const sc=score>=90?'ok':score>=50?'warn':'error';
-      const ic=score>=90?'✓':score>=50?'⚠ ':'✗';
-      await addLine(`${ic} Perf ${score}/100  ·  LCP ${lcp}  ·  CLS ${cls}  ·  FCP ${fcp}`,sc,400);
-    }catch(e){
-      await addLine('→ PageSpeed timed out — check pagespeed.web.dev','info',400);
-    }
+    }catch(e){ await addLine('→ Sitemap check skipped (network)','info',300); }
 
     /* ── Summary ── */
-    const allLines=[...body.querySelectorAll('.t-line')];
-    const nOk=allLines.filter(l=>l.classList.contains('ok')).length;
-    const nWarn=allLines.filter(l=>l.classList.contains('warn')).length;
-    const nErr=allLines.filter(l=>l.classList.contains('error')).length;
-    await addLine('','',150);
-    await addLine('──────────────────────────────────────────────','dim',150);
-    await addLine(`${nOk} passed  ·  ${nWarn} warnings  ·  ${nErr} errors`,'score',300);
-    await addLine('→ Full audit adds backlinks, keywords gaps, 40+ checks.','info',300);
+    const allL=[...body.querySelectorAll('.t-line')];
+    const nOk=allL.filter(l=>l.classList.contains('ok')).length;
+    const nWarn=allL.filter(l=>l.classList.contains('warn')).length;
+    const nErr=allL.filter(l=>l.classList.contains('error')).length;
+    await addLine('','',120);
+    await addLine('──────────────────────────────────────────────','dim',120);
+    await addLine(`${nOk} passed  ·  ${nWarn} warnings  ·  ${nErr} errors`,'score',280);
+    await addLine('→ Full audit adds backlinks, keyword gaps, 40+ checks.','info',280);
 
     btn.disabled=false; btn.textContent='Run →';
   }
