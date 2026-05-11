@@ -181,10 +181,6 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
   animation: em-glow 4s ease-in-out infinite;
 }
 @keyframes em-glow { 0%,100%{box-shadow:none} 50%{box-shadow:0 0 36px 10px rgba(229,255,0,.2)} }
-#typing-word {
-  display: inline-block;
-  transition: opacity .22s ease, transform .22s ease;
-}
 .hero-sub { font-size: clamp(17px, 1.6vw, 20px); color: var(--text-mute); max-width: 54ch; margin-bottom: 44px; line-height: 1.55; }
 .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
 .kw-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 40px; max-width: 680px; }
@@ -526,7 +522,7 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
         <span class="hero-pill-tag">Available</span>
         <span>Independent SEO consultant — booking now</span>
       </div>
-      <h1>Your <span id="typing-word">SEO</span> is stuck <em>and you don't know why</em>.</h1>
+      <h1>Your traffic is stuck <em>and you don't know why</em>.</h1>
       <p class="hero-sub">I find the hidden opportunities your tools miss. AI-powered analysis, expert-driven decisions.</p>
       <div class="hero-ctas">
         <a href="#brief" class="btn btn-primary btn-lg">Book a free audit →</a>
@@ -841,7 +837,7 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
       <!-- Content -->
       <div class="about-content">
         <div class="eyebrow reveal" style="margin-bottom:20px">Behind HIGH RANK</div>
-        <h2 class="reveal">Tristan<br>Wiart-Ruant.</h2>
+        <h2 class="reveal">Tristan.</h2>
         <div class="about-role reveal">Founder & SEO Consultant</div>
         <p class="reveal">I've been doing SEO for <strong>4+ years</strong>, first at agencies working across SaaS, e-commerce, media and B2B — then building <strong>50+ sites of my own</strong>. When you have skin in the game, you learn fast what actually works versus what looks good in a deck.</p>
         <p class="reveal" style="transition-delay:.08s">My edge is the combination: I write code, I understand every CMS from Shopify to headless, and I've built custom <strong>MCP workflows</strong> that let AI process your data at a scale no manual audit can match — while I stay the one making the actual calls.</p>
@@ -960,17 +956,6 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
   });
 })();
 
-/* ── Typing word ── */
-(function(){
-  const words=['SEO','traffic','rankings','visibility','revenue'];
-  const el=document.getElementById('typing-word'); if(!el) return;
-  let idx=0;
-  setInterval(()=>{
-    idx=(idx+1)%words.length;
-    el.style.opacity='0'; el.style.transform='translateY(8px)';
-    setTimeout(()=>{ el.textContent=words[idx]; el.style.opacity='1'; el.style.transform='none'; },220);
-  },2800);
-})();
 
 /* ── Counter animation ── */
 (function(){
