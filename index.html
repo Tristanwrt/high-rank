@@ -7,7 +7,7 @@
 <meta name="description" content="HIGH RANK — Independent SEO consulting. AI-powered analysis, expert-driven decisions. AI detects, my expertise decides." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
 /* ── Reset ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -95,14 +95,13 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 .nav.visible { transform: translateY(0); }
 .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 58px; }
 .brand {
-  display: flex; align-items: center; gap: 10px;
-  font-family: var(--f-display); font-weight: 800;
-  letter-spacing: -.01em; font-size: 15px; text-transform: uppercase;
+  display: inline-flex; align-items: baseline; gap: 0;
+  font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
+  font-size: 17px; letter-spacing: -0.04em; line-height: 1; color: var(--text);
 }
-.brand-mark {
-  width: 24px; height: 24px; display: grid; place-items: center;
+.brand .brand-hl {
   background: var(--accent); color: var(--accent-text);
-  border-radius: 2px; font-family: var(--f-display); font-weight: 800; font-size: 12px;
+  padding: 0 0.06em; margin-left: 0.04em;
 }
 .nav-links { display: flex; gap: 2px; }
 .nav-link { font-size: 13.5px; color: var(--text-mute); padding: 7px 11px; border-radius: var(--radius); transition: color .15s, background .15s; }
@@ -431,7 +430,7 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 <!-- ── Nav ── -->
 <nav class="nav" id="nav">
   <div class="wrap nav-inner">
-    <a href="#top" class="brand"><span class="brand-mark">H</span>HIGH RANK</a>
+    <a href="#top" class="brand">HIGH<span class="brand-hl">RANK</span></a>
     <div class="nav-links">
       <a href="#problem" class="nav-link">Why</a>
       <a href="#method" class="nav-link">Method</a>
