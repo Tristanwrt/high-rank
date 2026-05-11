@@ -399,6 +399,31 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 @media (max-width: 800px) { .reassure-grid { grid-template-columns: 1fr; } }
 
 
+/* ── About ── */
+.about-grid { display: grid; grid-template-columns: 340px 1fr; gap: 72px; align-items: start; }
+.about-photo-wrap { position: sticky; top: 110px; }
+.about-photo-ph {
+  width: 100%; aspect-ratio: 3/4;
+  background: var(--bg-elev2); border: 1px solid var(--border); border-radius: 12px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
+}
+.about-photo-ph .ph-initials { font-family: var(--f-display); font-size: 56px; font-weight: 800; color: var(--accent); letter-spacing: -.03em; }
+.about-photo-ph .ph-label { font-family: var(--f-mono); font-size: 10px; font-weight: 500; color: var(--text-faint); letter-spacing: .08em; text-transform: uppercase; }
+.about-photo-ph img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 12px; }
+.about-content h2 { font-size: clamp(28px, 3.2vw, 44px); line-height: 1.1; letter-spacing: -.025em; font-weight: 800; margin-bottom: 6px; }
+.about-content .about-role { font-family: var(--f-mono); font-size: 13px; font-weight: 500; color: var(--accent); margin-bottom: 28px; letter-spacing: .02em; }
+.about-content p { color: var(--text-mute); font-size: 17px; line-height: 1.65; margin-bottom: 20px; }
+.about-content p strong { color: var(--text); font-weight: 600; }
+.about-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; }
+.about-tag { font-family: var(--f-mono); font-size: 12px; font-weight: 500; padding: 5px 12px; background: var(--bg-elev); border: 1px solid var(--border); color: var(--text-mute); border-radius: 4px; }
+.about-tag.hl { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+.about-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-top: 40px; }
+.about-stat { background: var(--bg-elev); padding: 24px 20px; display: flex; flex-direction: column; gap: 4px; }
+.about-stat b { font-family: var(--f-display); font-size: 28px; font-weight: 800; color: var(--accent); letter-spacing: -.03em; }
+.about-stat span { font-family: var(--f-mono); font-size: 11px; font-weight: 500; color: var(--text-faint); }
+@media (max-width: 960px) { .about-grid { grid-template-columns: 1fr; gap: 40px; } .about-photo-wrap { position: static; max-width: 260px; } }
+@media (max-width: 600px) { .about-stats { grid-template-columns: 1fr 1fr; } }
+
 /* ── FAQ ── */
 .faq-list { display: flex; flex-direction: column; max-width: 920px; margin: 0 auto; border-top: 1px solid var(--border); }
 .faq-item { border-bottom: 1px solid var(--border); }
@@ -411,13 +436,27 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 .faq-a-inner { padding: 0 0 24px; font-size: 16px; color: var(--text-mute); line-height: 1.6; max-width: 64ch; }
 
 /* ── Final CTA ── */
-.final-cta { text-align: center; padding: 120px 0 140px; background: var(--bg-invert); color: var(--text-on-invert); position: relative; z-index: 1; border-top: 1px solid var(--bg-invert); }
+.final-cta { text-align: center; padding: 120px 0 140px; background: #111114; color: var(--text); position: relative; z-index: 1; border-top: 3px solid var(--accent); overflow: hidden; }
+.final-cta::before { content:''; position:absolute; top:-120px; left:50%; transform:translateX(-50%); width:600px; height:600px; border-radius:50%; background:radial-gradient(circle, rgba(229,255,0,.07) 0%, transparent 65%); pointer-events:none; }
 .final-cta h2 { font-size: clamp(36px, 5.5vw, 72px); line-height: 1.1; letter-spacing: -.01em; font-weight: 600; text-wrap: balance; margin-bottom: 20px; max-width: 18ch; margin-inline: auto; }
 .final-cta h2 em { font-style: normal; color: var(--accent); }
-.final-cta p { font-size: 18px; color: var(--text-on-invert-mute); margin-bottom: 44px; max-width: 50ch; margin-inline: auto; }
+.final-cta p { font-size: 18px; color: var(--text-mute); margin-bottom: 44px; max-width: 50ch; margin-inline: auto; }
 .final-cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-.final-cta .btn-ghost { color: var(--text-on-invert); border-color: rgba(0,0,0,.25); }
-.final-cta .btn-ghost:hover { background: rgba(0,0,0,.06); }
+.final-cta .btn-ghost { color: var(--text); border-color: var(--border-strong); }
+.final-cta .btn-ghost:hover { background: var(--bg-elev); }
+
+/* ── Title stroke (underline décalé) ── */
+.hi {
+  position: relative; display: inline;
+}
+.hi::after {
+  content: ''; position: absolute;
+  left: -4px; right: -4px; bottom: 1px;
+  height: 9px; background: var(--accent);
+  z-index: -1; border-radius: 1px;
+  transform: skewX(-8deg) rotate(-1.2deg);
+  opacity: .85;
+}
 
 /* ── Footer ── */
 .footer { border-top: 1px solid var(--border); padding: 40px 0 56px; font-family: var(--f-mono); font-size: 12px; font-weight: 500; color: var(--text-faint); position: relative; z-index: 1; }
@@ -470,6 +509,7 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
       <a href="#problem" class="nav-link">Why</a>
       <a href="#method" class="nav-link">Method</a>
       <a href="#services" class="nav-link">Services</a>
+      <a href="#about" class="nav-link">About</a>
       <a href="#faq" class="nav-link">FAQ</a>
     </div>
     <a href="#brief" class="btn btn-primary">Book an audit →</a>
@@ -501,14 +541,14 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
         <span class="kw">Link building</span>
       </div>
       <div class="hero-meta">
-        <div class="hero-meta-item"><b id="c-years">0</b><span>years agency-side</span></div>
+        <div class="hero-meta-item"><b id="c-years">0</b><span>years SEO experience</span></div>
         <div class="hero-meta-item"><b id="c-industries">0</b><span>industries covered</span></div>
-        <div class="hero-meta-item"><b id="c-sites">0</b><span>sites of my own</span></div>
+        <div class="hero-meta-item"><b id="c-sites">0</b><span>sites built & owned</span></div>
       </div>
     </div>
     <!-- Right: terminal -->
     <div class="hero-right">
-      <div class="eyebrow" style="margin-bottom:16px">Live SEO audit</div>
+      <div class="eyebrow" style="margin-bottom:16px">SEO audit — demo</div>
       <div class="terminal" style="box-shadow:0 24px 64px rgba(0,0,0,.7)">
         <div class="terminal-bar">
           <span class="t-dot"></span><span class="t-dot"></span><span class="t-dot"></span>
@@ -517,10 +557,9 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
         <div class="terminal-body" id="terminal-body" style="min-height:260px;max-height:340px">
           <div class="t-line dim">// Enter your domain and press Run<span class="t-cursor"></span></div>
         </div>
-        <div class="terminal-input-row">
-          <span class="t-prompt">audit $</span>
-          <input class="t-input" id="t-input" type="text" placeholder="yourdomain.com" autocomplete="off" spellcheck="false" />
-          <button class="t-run" id="t-run">Run →</button>
+        <div style="padding:12px 24px;border-top:1px solid var(--border);background:#08080A;display:flex;align-items:center;justify-content:space-between;gap:12px;">
+          <span style="font-family:var(--f-mono);font-size:11px;font-weight:500;color:var(--text-faint);">→ demo — looping live data</span>
+          <button onclick="document.getElementById('brief').scrollIntoView({behavior:'smooth',block:'start'})" style="background:#E5FF00;color:#0E0E10;font-family:var(--f-mono);font-size:12px;font-weight:600;padding:7px 16px;border:none;border-radius:3px;cursor:pointer;white-space:nowrap;flex-shrink:0;">Book free audit →</button>
         </div>
       </div>
     </div>
@@ -780,9 +819,49 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
       <h2>Three reasons clients pick me.</h2>
     </div>
     <div class="reassure-grid">
-      <div class="reassure-cell reveal"><div class="reassure-num">/ 01</div><h4>3 years agency-side + 6 sites of my own.</h4><p>I've shipped on enterprise stacks and on my own properties. Real skin in the game.</p></div>
+      <div class="reassure-cell reveal"><div class="reassure-num">/ 01</div><h4>4 years agency-side + 50 sites of my own.</h4><p>I've shipped on enterprise stacks and on my own properties. Real skin in the game.</p></div>
       <div class="reassure-cell reveal" style="transition-delay:.12s"><div class="reassure-num">/ 02</div><h4>AI methodology I actually built.</h4><p>Custom MCP servers, real workflows — not a ChatGPT prompt I sell back to you.</p></div>
       <div class="reassure-cell reveal" style="transition-delay:.24s"><div class="reassure-num">/ 03</div><h4>No empty promises.</h4><p>Measurable outcomes only. If the audit doesn't deliver, you get a partial refund. In writing.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── About ── -->
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <!-- Photo -->
+      <div class="about-photo-wrap reveal">
+        <div class="about-photo-ph" id="about-photo">
+          <!-- Replace with <img src="your-photo.jpg" alt="Tristan Wiart-Ruant"> when ready -->
+          <span class="ph-initials">TW</span>
+          <span class="ph-label">photo à venir</span>
+        </div>
+      </div>
+      <!-- Content -->
+      <div class="about-content">
+        <div class="eyebrow reveal" style="margin-bottom:20px">Behind HIGH RANK</div>
+        <h2 class="reveal">Tristan<br>Wiart-Ruant.</h2>
+        <div class="about-role reveal">Founder & SEO Consultant</div>
+        <p class="reveal">I've been doing SEO for <strong>4+ years</strong>, first at agencies working across SaaS, e-commerce, media and B2B — then building <strong>50+ sites of my own</strong>. When you have skin in the game, you learn fast what actually works versus what looks good in a deck.</p>
+        <p class="reveal" style="transition-delay:.08s">My edge is the combination: I write code, I understand every CMS from Shopify to headless, and I've built custom <strong>MCP workflows</strong> that let AI process your data at a scale no manual audit can match — while I stay the one making the actual calls.</p>
+        <p class="reveal" style="transition-delay:.16s">No team of juniors. No generic playbook. Just the work, done properly, with me accountable for the results. <strong>HIGH RANK is a one-person LLC registered in the United States</strong> — which means you deal with the person doing the work, start to finish.</p>
+        <div class="about-stats reveal" style="transition-delay:.22s">
+          <div class="about-stat"><b>4+</b><span>years SEO experience</span></div>
+          <div class="about-stat"><b>50+</b><span>sites built & owned</span></div>
+          <div class="about-stat"><b>20+</b><span>industries covered</span></div>
+        </div>
+        <div class="about-tags reveal" style="transition-delay:.28s">
+          <span class="about-tag hl">Programmatic SEO</span>
+          <span class="about-tag hl">AI / MCP workflows</span>
+          <span class="about-tag hl">GEO & LLM visibility</span>
+          <span class="about-tag">Tech SEO</span>
+          <span class="about-tag">Semantic architecture</span>
+          <span class="about-tag">Link building</span>
+          <span class="about-tag">SaaS</span>
+          <span class="about-tag">E-commerce</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -807,7 +886,7 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 <!-- ── Final CTA ── -->
 <section class="final-cta" id="contact">
   <div class="wrap">
-    <h2 class="reveal">Ready to <em>unblock your SEO</em>?</h2>
+    <h2 class="reveal">Ready to <span class="hi">unblock</span> your <em>SEO</em>?</h2>
     <p class="reveal" style="transition-delay:.1s">Complete audit in 3–5 days. A real action plan — not 500 rows of Excel.</p>
     <div class="final-cta-actions reveal" style="transition-delay:.22s">
       <a href="#brief" class="btn btn-primary btn-xl">Book a free audit →</a>
@@ -900,9 +979,9 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
     const t=setInterval(()=>{ n++; el.textContent=n+suffix; if(n>=end) clearInterval(t); },step);
   }
   setTimeout(()=>{
-    countUp(document.getElementById('c-years'),3,'+',700);
+    countUp(document.getElementById('c-years'),4,'+',700);
     countUp(document.getElementById('c-industries'),20,'+',1100);
-    countUp(document.getElementById('c-sites'),6,'',600);
+    countUp(document.getElementById('c-sites'),50,'+',900);
   },1100);
 })();
 
@@ -962,164 +1041,72 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
   },{threshold:0.25}).observe(tl);
 })();
 
-/* ── Audit terminal ── */
+/* ── Demo terminal ── */
 (function(){
   const body=document.getElementById('terminal-body');
-  const input=document.getElementById('t-input');
-  const btn=document.getElementById('t-run');
-  if(!body||!input||!btn) return;
+  if(!body) return;
 
-  function addLine(text,cls,delay){
-    return new Promise(res=>setTimeout(()=>{
-      const d=document.createElement('div');
-      d.className='t-line '+(cls||'');
-      d.textContent=text||'';
-      if(!text) d.className='t-line empty';
-      body.appendChild(d);
-      body.scrollTop=body.scrollHeight;
-      res();
-    },delay));
+  const LINES=[
+    {text:'$ hr-audit --url client-startup.com',cls:'cmd',delay:0},
+    {text:'→ Resolving domain... OK',cls:'info',delay:500},
+    {text:'→ Launching full SEO scan...',cls:'info',delay:1000},
+    {text:'',cls:'empty',delay:1500},
+    {text:'$ Keyword positions (top 50)...',cls:'cmd',delay:1800},
+    {text:'✓ 84 keywords in top 10',cls:'ok',delay:2300},
+    {text:'✓ 23 keywords ranking #1',cls:'ok',delay:2700},
+    {text:'⚡ "seo agency paris" → #14  (push to top 5)',cls:'warn',delay:3150},
+    {text:'⚡ "startup seo" → #17  (quick win)',cls:'warn',delay:3550},
+    {text:'⚠  12 keywords dropped >5 positions — last 30d',cls:'warn',delay:3950},
+    {text:'',cls:'empty',delay:4350},
+    {text:'$ Technical audit...',cls:'cmd',delay:4650},
+    {text:'✗ LCP: 4.2s — failing Core Web Vitals',cls:'error',delay:5150},
+    {text:'⚠  7 images missing alt text',cls:'warn',delay:5550},
+    {text:'⚠  Duplicate H1 detected on 3 pages',cls:'warn',delay:5900},
+    {text:'✗ Meta description missing on 11 pages',cls:'error',delay:6250},
+    {text:'✗ Keyword cannibalization — 4 URL pairs competing',cls:'error',delay:6600},
+    {text:'✓ robots.txt valid · sitemap.xml found (312 URLs)',cls:'ok',delay:7000},
+    {text:'✓ Canonical URLs correct',cls:'ok',delay:7350},
+    {text:'',cls:'empty',delay:7650},
+    {text:'$ Backlink profile...',cls:'cmd',delay:7950},
+    {text:'✓ 142 referring domains',cls:'ok',delay:8450},
+    {text:'⚠  Domain Rating: 31  (competitor avg: 52)',cls:'warn',delay:8850},
+    {text:'⚠  3 toxic backlinks detected',cls:'warn',delay:9200},
+    {text:'→ Top competitor has 3.2× more referring domains',cls:'info',delay:9550},
+    {text:'',cls:'empty',delay:9900},
+    {text:'$ Content gaps vs top-3 competitors...',cls:'cmd',delay:10200},
+    {text:'✗ 18 missing topics vs competitor #1',cls:'error',delay:10700},
+    {text:'⚡ "how to rank on google" — 8,400/mo · KD easy',cls:'warn',delay:11100},
+    {text:'⚡ "seo checklist 2026" — 5,200/mo · KD medium',cls:'warn',delay:11500},
+    {text:'',cls:'empty',delay:11900},
+    {text:'──────────────────────────────────────────────',cls:'dim',delay:12300},
+    {text:'SEO SCORE  42 / 100  ·  11 critical issues found',cls:'score',delay:12800},
+    {text:'→ Full audit: 200+ checks, action plan in 3–5 days.',cls:'info',delay:13300},
+  ];
+
+  const LOOP_PAUSE=4500;
+  let timers=[];
+
+  function clearTimers(){ timers.forEach(clearTimeout); timers=[]; }
+
+  function addLine(text,cls){
+    const d=document.createElement('div');
+    if(!text){ d.className='t-line empty'; }
+    else{ d.className='t-line '+(cls||''); d.textContent=text; }
+    body.appendChild(d);
+    body.scrollTop=body.scrollHeight;
   }
 
-  async function runAudit(raw){
+  function runDemo(){
+    clearTimers();
     body.innerHTML='';
-    const domain=(raw||'').replace(/^https?:\/\//,'').replace(/\/$/,'').trim();
-    if(!domain){ await addLine('⚠  Enter a domain first','warn',0); return; }
-    const url=`https://${domain}`;
-    btn.disabled=true; btn.textContent='Running…';
-
-    await addLine(`$ hr-audit --url ${url}`,'cmd',0);
-    await addLine('→ Launching Lighthouse — rendering the page (~15s)...','info',300);
-
-    /* ── Single Lighthouse call: perf + SEO + best-practices ── */
-    let lh=null;
-    try{
-      const ctrl=new AbortController();
-      setTimeout(()=>ctrl.abort(),28000);
-      const r=await fetch(
-        `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(url)}&strategy=mobile&category=performance&category=seo&category=best-practices`,
-        {signal:ctrl.signal}
-      );
-      const d=await r.json();
-      if(d.error) throw new Error(d.error.message||'API error');
-      if(!d.lighthouseResult) throw new Error('No data returned');
-      lh=d.lighthouseResult;
-      await addLine(`✓ Lighthouse ${lh.lighthouseVersion} — analysis complete`,'ok',200);
-    }catch(e){
-      await addLine(`✗ ${e.message||'Analysis failed — verify the domain'}`, 'error',200);
-      btn.disabled=false; btn.textContent='Run →'; return;
-    }
-
-    const a=lh.audits||{};
-    const cats=lh.categories||{};
-
-    /* ── SEO audits ── */
-    await addLine('','',80);
-    await addLine('$ SEO checks...','cmd',120);
-
-    function al(audit,fail,pass){
-      if(!audit) return;
-      const s=audit.score;
-      if(s===1||s===null) return {cls:'ok',text:`✓ ${pass}`};
-      const dv=audit.displayValue?` — ${audit.displayValue}`:'';
-      return {cls:s===0?'error':'warn',text:`${s===0?'✗':'⚠ '} ${fail}${dv}`};
-    }
-
-    const seoChecks=[
-      al(a['document-title'],'Missing <title> tag','Title tag present'),
-      al(a['meta-description'],'Meta description missing or invalid','Meta description OK'),
-      al(a['is-crawlable'],'Page blocked from indexing (noindex)','Page is indexable'),
-      al(a['canonical'],'Canonical URL issue','Canonical URL valid'),
-      al(a['robots-txt'],'robots.txt invalid or missing','robots.txt valid'),
-      al(a['hreflang'],'hreflang issues detected','hreflang correct'),
-      a['image-alt']?.score<1
-        ? {cls:'warn',text:`⚠  ${a['image-alt'].details?.items?.length||'?'} image(s) missing alt attribute`}
-        : {cls:'ok',text:'✓ All images have alt text'},
-      al(a['link-text'],'Non-descriptive anchor text found','Link text descriptive'),
-      al(a['tap-targets'],'Tap targets too small on mobile','Tap targets OK'),
-    ];
-    for(const c of seoChecks) if(c) await addLine(c.text,c.cls,240);
-
-    /* ── Performance + CWV ── */
-    await addLine('','',80);
-    await addLine('$ Core Web Vitals (mobile)...','cmd',120);
-
-    const perfScore=Math.round((cats.performance?.score||0)*100);
-    const seoScore=Math.round((cats.seo?.score||0)*100);
-    const lcp=a['largest-contentful-paint']?.displayValue||'n/a';
-    const clsV=a['cumulative-layout-shift']?.displayValue||'n/a';
-    const fcp=a['first-contentful-paint']?.displayValue||'n/a';
-    const tbt=a['total-blocking-time']?.displayValue||'n/a';
-    const pSt=perfScore>=90?'ok':perfScore>=50?'warn':'error';
-    const pIc=perfScore>=90?'✓':perfScore>=50?'⚠ ':'✗';
-    await addLine(`${pIc} Performance ${perfScore}/100  ·  SEO score ${seoScore}/100`,pSt,240);
-    await addLine(`→ LCP ${lcp}  ·  CLS ${clsV}  ·  FCP ${fcp}  ·  TBT ${tbt}`,'info',240);
-
-    /* ── Top performance quick wins ── */
-    const opps=[
-      a['render-blocking-resources'],a['unused-javascript'],a['unused-css-rules'],
-      a['uses-optimized-images'],a['uses-webp-images'],a['uses-text-compression'],
-      a['efficient-animated-content'],a['uses-long-cache-ttl'],
-    ].filter(x=>x&&x.score!==null&&x.score<1)
-     .sort((b,c)=>(c.details?.overallSavingsMs||0)-(b.details?.overallSavingsMs||0))
-     .slice(0,3);
-    if(opps.length){
-      await addLine('','',80);
-      await addLine('$ Performance quick wins...','cmd',120);
-      for(const op of opps){
-        const save=op.details?.overallSavingsMs?` (~${Math.round(op.details.overallSavingsMs)}ms saved)`:'';
-        await addLine(`⚡ ${op.title}${save}`,'warn',240);
-      }
-    }
-
-    /* ── Sitemap (best-effort) ── */
-    await addLine('','',80);
-    await addLine('$ Checking sitemap.xml...','cmd',120);
-    try{
-      const ctrl2=new AbortController();
-      setTimeout(()=>ctrl2.abort(),7000);
-      const sr=await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(`${url}/sitemap.xml`)}`,{signal:ctrl2.signal});
-      const sd=await sr.json();
-      const sc=sd.contents||'';
-      if(sc.includes('<urlset')||sc.includes('<sitemapindex')){
-        const n=(sc.match(/<url>/g)||[]).length;
-        const ni=(sc.match(/<sitemap>/g)||[]).length;
-        await addLine(ni>0?`✓ Sitemap index — ${ni} child sitemaps`:`✓ sitemap.xml — ${n} URLs`,'ok',300);
-      }else{
-        await addLine('⚠  sitemap.xml not found at /sitemap.xml','warn',300);
-      }
-    }catch(e){ await addLine('→ Sitemap check skipped (network)','info',300); }
-
-    /* ── Summary ── */
-    const allL=[...body.querySelectorAll('.t-line')];
-    const nOk=allL.filter(l=>l.classList.contains('ok')).length;
-    const nWarn=allL.filter(l=>l.classList.contains('warn')).length;
-    const nErr=allL.filter(l=>l.classList.contains('error')).length;
-    await addLine('','',120);
-    await addLine('──────────────────────────────────────────────','dim',120);
-    await addLine(`${nOk} passed  ·  ${nWarn} warnings  ·  ${nErr} errors`,'score',280);
-    await addLine('→ Full audit adds backlinks, keyword gaps, 40+ checks.','info',280);
-
-    /* CTA */
-    setTimeout(()=>{
-      const cta=document.createElement('div');
-      cta.style.cssText='padding:16px 0 4px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;';
-      const ctaBtn=document.createElement('button');
-      ctaBtn.textContent='Get the full audit →';
-      ctaBtn.style.cssText='background:#E5FF00;color:#0E0E10;font-family:var(--f-mono);font-size:12px;font-weight:600;padding:8px 18px;border:none;border-radius:3px;cursor:pointer;';
-      ctaBtn.onclick=()=>{ document.getElementById('brief').scrollIntoView({behavior:'smooth',block:'start'}); };
-      const ctaNote=document.createElement('span');
-      ctaNote.textContent='Delivered in 3–5 days. I read every brief myself.';
-      ctaNote.style.cssText='font-family:var(--f-mono);font-size:11px;color:var(--text-faint);';
-      cta.appendChild(ctaBtn); cta.appendChild(ctaNote);
-      body.appendChild(cta); body.scrollTop=body.scrollHeight;
-    },600);
-
-    btn.disabled=false; btn.textContent='Run →';
+    LINES.forEach(({text,cls,delay})=>{
+      timers.push(setTimeout(()=>addLine(text,cls),delay));
+    });
+    const restart=LINES[LINES.length-1].delay+LOOP_PAUSE;
+    timers.push(setTimeout(runDemo,restart));
   }
 
-  btn.addEventListener('click',()=>runAudit(input.value));
-  input.addEventListener('keydown',e=>{ if(e.key==='Enter') runAudit(input.value); });
+  setTimeout(runDemo,900);
 })();
 
 /* ── FAQ ── */
