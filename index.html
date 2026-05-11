@@ -89,10 +89,7 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
   backdrop-filter: blur(16px) saturate(140%);
   -webkit-backdrop-filter: blur(16px) saturate(140%);
   border-bottom: 1px solid var(--border);
-  transform: translateY(-130%);
-  transition: transform .5s cubic-bezier(0.16,1,0.3,1);
 }
-.nav.visible { transform: translateY(0); }
 .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 58px; }
 .brand {
   display: inline-flex; align-items: baseline; gap: 0;
@@ -882,7 +879,6 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
     const scrollY=window.scrollY;
     const docH=document.documentElement.scrollHeight-window.innerHeight;
     bar.style.width=(scrollY/docH*100)+'%';
-    nav.classList.toggle('visible', scrollY>window.innerHeight*0.55);
     if(window._setScrollOffset) window._setScrollOffset(scrollY);
 
     /* problem chapter */
