@@ -1,19 +1,19 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>HIGH RANK — SEO consultant, AI-powered audits</title>
-<meta name="description" content="I find the SEO opportunities your tools miss. AI-powered analysis, expert-driven decisions. Free live audit — enter your domain." />
+<title data-i18n="meta.title">HIGH RANK — Plus de clients via Google, sans payer de pub</title>
+<meta name="description" data-i18n-attr="content:meta.description" content="On vous aide à attirer plus de clients depuis Google. Diagnostic gratuit, plan d'action clair, sans jargon technique." />
 <!-- OG -->
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://tristanwrt.github.io/high-rank/" />
-<meta property="og:title" content="HIGH RANK — SEO consultant, AI-powered audits" />
-<meta property="og:description" content="I find the SEO opportunities your tools miss. AI-powered analysis, expert-driven decisions. Free live audit." />
-<meta property="og:image" content="https://tristanwrt.github.io/high-rank/og.png" />
+<meta property="og:url" content="https://high-rank.io/" />
+<meta property="og:title" content="HIGH RANK — Plus de clients via Google" />
+<meta property="og:description" content="On vous aide à attirer plus de clients depuis Google. Diagnostic gratuit, plan d'action clair, sans jargon." />
+<meta property="og:image" content="https://high-rank.io/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="HIGH RANK — SEO consultant" />
-<meta name="twitter:description" content="AI-powered SEO audits. Real checks, real data, no fluff." />
+<meta name="twitter:title" content="HIGH RANK — Plus de clients via Google" />
+<meta name="twitter:description" content="Diagnostic gratuit. Plan d'action clair. Sans jargon." />
 <!-- Favicon -->
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23E5FF00'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='800' font-size='13' fill='%230E0E10'>HR</text></svg>" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -497,6 +497,35 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
   .final-cta { padding: 80px 0 96px; }
 
 }
+
+/* ── Language switcher ── */
+.lang-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  margin-right: 14px;
+}
+.lang-pill {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,.4);
+  cursor: pointer;
+  padding: 4px 6px;
+  font-family: inherit;
+  font-size: inherit;
+  letter-spacing: inherit;
+  transition: color 0.15s;
+}
+.lang-pill:hover { color: rgba(255,255,255,.85); }
+.lang-pill.active { color: var(--accent); }
+.lang-sep { color: rgba(255,255,255,.2); }
+@media (max-width: 640px) {
+  .lang-switcher { margin-right: 8px; font-size: 11px; }
+  .lang-pill { padding: 4px 4px; }
+}
 </style>
 </head>
 <body>
@@ -508,17 +537,17 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 <!-- ── Ticker ── -->
 <div class="ticker-wrap" aria-hidden="true">
   <div class="ticker-track">
-    <span>● 2 audit slots open this month</span><span class="sep">·</span>
-    <span>Next available: May 19</span><span class="sep">·</span>
-    <span>Free 15-min discovery call</span><span class="sep">·</span>
-    <span>Avg. response time: &lt; 4h</span><span class="sep">·</span>
-    <span>AI detects. My expertise decides.</span><span class="sep">·</span>
+    <span data-i18n="ticker.s1">● 2 créneaux de diagnostic ouverts ce mois-ci</span><span class="sep">·</span>
+    <span data-i18n="ticker.s2">Prochain créneau disponible sous 48h</span><span class="sep">·</span>
+    <span data-i18n="ticker.s3">Call découverte gratuit de 15 min</span><span class="sep">·</span>
+    <span data-i18n="ticker.s4">Réponse moyenne : &lt; 4h</span><span class="sep">·</span>
+    <span data-i18n="ticker.s5">On analyse en profondeur. On décide ce qui compte.</span><span class="sep">·</span>
     <!-- duplicate for seamless loop -->
-    <span>● 2 audit slots open this month</span><span class="sep">·</span>
-    <span>Next available: May 19</span><span class="sep">·</span>
-    <span>Free 15-min discovery call</span><span class="sep">·</span>
-    <span>Avg. response time: &lt; 4h</span><span class="sep">·</span>
-    <span>AI detects. My expertise decides.</span><span class="sep">·</span>
+    <span data-i18n="ticker.s1">● 2 créneaux de diagnostic ouverts ce mois-ci</span><span class="sep">·</span>
+    <span data-i18n="ticker.s2">Prochain créneau disponible sous 48h</span><span class="sep">·</span>
+    <span data-i18n="ticker.s3">Call découverte gratuit de 15 min</span><span class="sep">·</span>
+    <span data-i18n="ticker.s4">Réponse moyenne : &lt; 4h</span><span class="sep">·</span>
+    <span data-i18n="ticker.s5">On analyse en profondeur. On décide ce qui compte.</span><span class="sep">·</span>
   </div>
 </div>
 
@@ -527,13 +556,18 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
   <div class="wrap nav-inner">
     <a href="#top" class="brand">HIGH<span class="brand-hl">RANK</span></a>
     <div class="nav-links">
-      <a href="#problem" class="nav-link">Why</a>
-      <a href="#method" class="nav-link">Method</a>
-      <a href="#services" class="nav-link">Services</a>
-      <a href="#about" class="nav-link">About</a>
-      <a href="#faq" class="nav-link">FAQ</a>
+      <a href="#problem" class="nav-link" data-i18n="nav.why">Pourquoi</a>
+      <a href="#method" class="nav-link" data-i18n="nav.method">Méthode</a>
+      <a href="#services" class="nav-link" data-i18n="nav.services">Services</a>
+      <a href="#about" class="nav-link" data-i18n="nav.about">À propos</a>
+      <a href="#faq" class="nav-link" data-i18n="nav.faq">FAQ</a>
     </div>
-    <a href="#brief" class="btn btn-primary">Book an audit →</a>
+    <div class="lang-switcher" role="group" aria-label="Language">
+      <button type="button" data-lang="fr" class="lang-pill active" aria-pressed="true">FR</button>
+      <span class="lang-sep" aria-hidden="true">·</span>
+      <button type="button" data-lang="en" class="lang-pill" aria-pressed="false">EN</button>
+    </div>
+    <a href="#brief" class="btn btn-primary" data-i18n="nav.cta">Mon diagnostic gratuit →</a>
   </div>
 </nav>
 
@@ -544,31 +578,31 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
     <!-- Left -->
     <div class="hero-left">
       <div class="hero-pill">
-        <span class="hero-pill-tag">Available</span>
-        <span>Independent SEO consultant — booking now</span>
+        <span class="hero-pill-tag" data-i18n="hero.pill.tag">Disponible</span>
+        <span data-i18n="hero.pill.text">Diagnostic gratuit ouvert — créneaux du mois</span>
       </div>
-      <h1>Your traffic is stuck <em>and you don't know why</em>.</h1>
-      <p class="hero-sub">I find the hidden opportunities your tools miss. AI-powered analysis, expert-driven decisions.</p>
+      <h1 data-i18n-html="hero.h1">Plus de <em>clients</em>. <em>Agenda rempli</em>.<br/>Plus de <em>chiffre d'affaires</em>.</h1>
+      <p class="hero-sub" data-i18n="hero.sub">Votre site existe, mais peu de gens le trouvent sur Google ? On analyse ce qui bloque, on vous remet un plan d'action clair. Sans jargon technique.</p>
       <div class="hero-ctas">
-        <a href="#brief" class="btn btn-primary btn-lg">Book a free audit →</a>
+        <a href="#brief" class="btn btn-primary btn-lg" data-i18n="hero.cta">Recevoir mon diagnostic gratuit →</a>
       </div>
       <div class="kw-row">
-        <span class="kw hl">Programmatic SEO</span>
-        <span class="kw hl">GEO / LLM visibility</span>
-        <span class="kw hl">MCP</span>
-        <span class="kw">Tech SEO</span>
-        <span class="kw">Semantic</span>
-        <span class="kw">Link building</span>
+        <span class="kw hl" data-i18n="hero.kw1">Visibilité Google</span>
+        <span class="kw hl" data-i18n="hero.kw2">Plus de leads</span>
+        <span class="kw hl" data-i18n="hero.kw3">Diagnostic offert</span>
+        <span class="kw" data-i18n="hero.kw4">Trafic qualifié</span>
+        <span class="kw" data-i18n="hero.kw5">Sans publicité</span>
+        <span class="kw" data-i18n="hero.kw6">Plan d'action clair</span>
       </div>
       <div class="hero-meta">
-        <div class="hero-meta-item"><b id="c-years">0</b><span>years SEO experience</span></div>
-        <div class="hero-meta-item"><b id="c-industries">0</b><span>industries covered</span></div>
-        <div class="hero-meta-item"><b id="c-sites">0</b><span>sites built & owned</span></div>
+        <div class="hero-meta-item"><b id="c-years">0</b><span data-i18n="hero.meta.years">ans d'expérience SEO</span></div>
+        <div class="hero-meta-item"><b id="c-industries">0</b><span data-i18n="hero.meta.industries">secteurs accompagnés</span></div>
+        <div class="hero-meta-item"><b id="c-sites">0</b><span data-i18n="hero.meta.sites">sites construits</span></div>
       </div>
     </div>
     <!-- Right: terminal -->
     <div class="hero-right">
-      <div class="eyebrow" style="margin-bottom:16px">SEO audit — demo</div>
+      <div class="eyebrow" style="margin-bottom:16px" data-i18n="hero.preview.label">Diagnostic SEO — aperçu</div>
       <div class="terminal" style="box-shadow:0 24px 64px rgba(0,0,0,.7)">
         <div class="terminal-bar">
           <span class="t-dot"></span><span class="t-dot"></span><span class="t-dot"></span>
@@ -578,8 +612,8 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
           <div class="t-line dim">// Enter your domain and press Run<span class="t-cursor"></span></div>
         </div>
         <div style="padding:12px 24px;border-top:1px solid var(--border);background:#08080A;display:flex;align-items:center;justify-content:space-between;gap:12px;">
-          <span style="font-family:var(--f-mono);font-size:11px;font-weight:500;color:var(--text-faint);">→ demo — looping live data</span>
-          <button onclick="document.getElementById('brief').scrollIntoView({behavior:'smooth',block:'start'})" style="background:#E5FF00;color:#0E0E10;font-family:var(--f-mono);font-size:12px;font-weight:600;padding:7px 16px;border:none;border-radius:3px;cursor:pointer;white-space:nowrap;flex-shrink:0;">Book free audit →</button>
+          <span style="font-family:var(--f-mono);font-size:11px;font-weight:500;color:var(--text-faint);" data-i18n="hero.terminal.label">→ démo — boucle sur données réelles</span>
+          <button onclick="document.getElementById('brief').scrollIntoView({behavior:'smooth',block:'start'})" style="background:#E5FF00;color:#0E0E10;font-family:var(--f-mono);font-size:12px;font-weight:600;padding:7px 16px;border:none;border-radius:3px;cursor:pointer;white-space:nowrap;flex-shrink:0;" data-i18n="hero.terminal.cta">Mon diagnostic gratuit →</button>
         </div>
       </div>
     </div>
@@ -592,8 +626,8 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
   <div class="chapter-sticky">
     <div class="problem-sticky">
       <div class="problem-left">
-        <div class="eyebrow" style="margin-bottom:20px">The problem</div>
-        <h2 class="problem-h2">Why your SEO isn't moving.</h2>
+        <div class="eyebrow" style="margin-bottom:20px" data-i18n="problem.eyebrow">Le problème</div>
+        <h2 class="problem-h2" data-i18n="problem.h2">Pourquoi votre site ne vous ramène pas de clients ?</h2>
         <div class="problem-counter">
           <span id="prob-count">01</span>&nbsp;/ 03
           <div class="problem-counter-dots">
@@ -607,25 +641,25 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
       <div class="problem-cards-wrap">
         <div class="prob-card active" data-card="0">
           <div class="prob-card-num">01 / 03</div>
-          <h3>You ran the free tools.</h3>
-          <p>10,000 lines of Excel. Zero idea what to do first. The tools surface symptoms — not priorities.</p>
+          <h3 data-i18n="problem.card1.title">Vous êtes sur Google… mais en page 3.</h3>
+          <p data-i18n="problem.card1.body">Personne ne va jamais en page 3. Si vous n'êtes pas dans le top 5, vos clients vont chez vos concurrents.</p>
           <div class="prob-card-bar"><div class="prob-card-bar-fill"></div></div>
         </div>
         <div class="prob-card" data-card="1">
           <div class="prob-card-num">02 / 03</div>
-          <h3>You read 20 SEO checklists.</h3>
-          <p>Every one of them says something different. Half are outdated. None are written for your specific site.</p>
+          <h3 data-i18n="problem.card2.title">Vous payez de la pub pour rien.</h3>
+          <p data-i18n="problem.card2.body">Google Ads, Meta Ads… ça coûte cher et ça s'arrête dès que vous coupez le robinet. Le référencement naturel travaille pour vous 24/7.</p>
           <div class="prob-card-bar"><div class="prob-card-bar-fill"></div></div>
         </div>
         <div class="prob-card" data-card="2">
           <div class="prob-card-num">03 / 03</div>
-          <h3>You asked your dev to fix it.</h3>
-          <p>They shipped the changes. Traffic didn't move. SEO isn't an engineering ticket — it's a strategy.</p>
+          <h3 data-i18n="problem.card3.title">Vos concurrents apparaissent à votre place.</h3>
+          <p data-i18n="problem.card3.body">Ils sont en haut, vous en bas. Souvent ce n'est pas qu'ils sont meilleurs — c'est qu'ils ont une méthode.</p>
           <div class="prob-card-bar"><div class="prob-card-bar-fill"></div></div>
         </div>
         <div class="prob-card problem-conclusion-card" data-card="3">
-          <h3>SEO isn't one checklist. It's <em>200 micro-decisions</em> that only experience knows how to make.</h3>
-          <a href="#method" class="btn btn-primary" style="margin-top:auto;align-self:flex-start">See the method →</a>
+          <h3 data-i18n-html="problem.conclusion">Ce n'est pas une question de chance. C'est une question de <em>méthode</em>.</h3>
+          <a href="#method" class="btn btn-primary" style="margin-top:auto;align-self:flex-start" data-i18n="problem.cta">Voir la méthode →</a>
         </div>
       </div>
     </div>
@@ -636,32 +670,32 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 <section class="section" id="method">
   <div class="wrap">
     <div class="section-head reveal">
-      <div class="eyebrow">The method</div>
-      <h2>AI handles the volume. I handle the call.</h2>
-      <p>Most consultants stop where the data dump ends. I start there.</p>
+      <div class="eyebrow" data-i18n="method.eyebrow">La méthode</div>
+      <h2 data-i18n="method.h2">On combine puissance d'analyse et bon sens humain.</h2>
+      <p data-i18n="method.intro">La plupart des audits s'arrêtent au dump de données. Nous, on commence là.</p>
     </div>
     <div class="compare reveal">
       <div class="compare-col">
-        <div class="compare-label">Standard consultants</div>
+        <div class="compare-label" data-i18n="method.them.label">Les autres audits</div>
         <ul class="compare-list">
-          <li>Crawl with off-the-shelf tools</li>
-          <li>Hand you 10,000 rows of CSV</li>
-          <li>"Here are the issues — good luck"</li>
-          <li>Static report, no follow-up</li>
+          <li data-i18n="method.them.b1">Un outil automatique scanne votre site</li>
+          <li data-i18n="method.them.b2">On vous balance 10 000 lignes de CSV</li>
+          <li data-i18n="method.them.b3">"Voici les soucis — bon courage"</li>
+          <li data-i18n="method.them.b4">Rapport statique, pas de suivi</li>
         </ul>
       </div>
       <div class="compare-col us">
-        <div class="compare-label">HIGH RANK</div>
+        <div class="compare-label" data-i18n="method.us.label">HIGH RANK</div>
         <ul class="compare-list">
-          <li>SEO expertise + custom AI models</li>
-          <li>AI processes data, my brain ranks priorities</li>
-          <li>Concrete action plan: quick wins + long-term plays</li>
-          <li>Live tracking, weekly check-ins</li>
+          <li data-i18n="method.us.b1">Analyse profonde + outils IA développés en interne</li>
+          <li data-i18n="method.us.b2">L'IA traite le volume, nous on décide des priorités</li>
+          <li data-i18n="method.us.b3">Plan d'action clair : ce qui paie vite + le long terme</li>
+          <li data-i18n="method.us.b4">Suivi en direct, points hebdo</li>
         </ul>
       </div>
     </div>
     <div class="compare-arch">
-      <p class="compare-tagline reveal">AI <em>detects</em>. My expertise <em>decides</em>.</p>
+      <p class="compare-tagline reveal" data-i18n-html="method.tagline">L'IA <em>détecte</em>. Notre expertise <em>décide</em>.</p>
       <div class="arch-svg-wrap reveal" style="transition-delay:.18s">
         <svg style="color:rgba(229,255,0,.3);display:block" width="100%" viewBox="0 0 200 100" aria-hidden="true">
           <g stroke="currentColor" fill="none" stroke-width="0.5" stroke-dasharray="100 100" pathLength="100" marker-start="url(#seo-circle-marker)">
@@ -735,44 +769,44 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 <section class="section" id="process">
   <div class="wrap">
     <div class="section-head reveal">
-      <div class="eyebrow">Process</div>
-      <h2>From brief to results.</h2>
-      <p>No black box. Here's exactly what happens after you hit send.</p>
+      <div class="eyebrow" data-i18n="process.eyebrow">Le déroulé</div>
+      <h2 data-i18n="process.h2">De votre brief aux premiers résultats.</h2>
+      <p data-i18n="process.intro">Pas de boîte noire. Voici exactement ce qui se passe après que vous nous écrivez.</p>
     </div>
     <div class="timeline reveal" id="timeline">
       <div class="tl-step">
         <div class="tl-connector"></div>
         <div class="tl-dot"></div>
-        <div class="tl-day">Day 0</div>
-        <h3>Brief submitted</h3>
-        <p>You fill the form. I read it myself and reply within 4h with a scoping proposal or questions.</p>
+        <div class="tl-day" data-i18n="process.step1.day">Jour 0</div>
+        <h3 data-i18n="process.step1.title">Vous remplissez le brief</h3>
+        <p data-i18n="process.step1.body">3 minutes. Quelques questions simples sur votre activité et vos objectifs. On vous lit en personne et on répond sous 4h.</p>
       </div>
       <div class="tl-step">
         <div class="tl-connector"></div>
         <div class="tl-dot"></div>
-        <div class="tl-day">Day 1</div>
-        <h3>Audit starts</h3>
-        <p>Technical crawl begins. I map your full site architecture, Core Web Vitals, and indexation status.</p>
+        <div class="tl-day" data-i18n="process.step2.day">Jour 1</div>
+        <h3 data-i18n="process.step2.title">On analyse votre site</h3>
+        <p data-i18n="process.step2.body">On regarde tout ce qui bloque votre visibilité : structure, vitesse, présence sur Google. Sous 48h.</p>
       </div>
       <div class="tl-step">
         <div class="tl-connector"></div>
         <div class="tl-dot"></div>
-        <div class="tl-day">Day 3</div>
-        <h3>AI analysis</h3>
-        <p>Custom models run on your data — cannibalization scan, keyword clustering, competitor gap analysis.</p>
+        <div class="tl-day" data-i18n="process.step3.day">Jour 3</div>
+        <h3 data-i18n="process.step3.title">Analyse IA</h3>
+        <p data-i18n="process.step3.body">Nos modèles internes analysent les pages qui se concurrencent, les mots-clés à fort potentiel et les écarts avec vos concurrents.</p>
       </div>
       <div class="tl-step">
         <div class="tl-connector"></div>
         <div class="tl-dot"></div>
-        <div class="tl-day">Day 5</div>
-        <h3>Report + strategy call</h3>
-        <p>Prioritized action plan delivered. We walk through it together — quick wins first, long game second.</p>
+        <div class="tl-day" data-i18n="process.step4.day">Jour 5</div>
+        <h3 data-i18n="process.step4.title">Diagnostic + call</h3>
+        <p data-i18n="process.step4.body">On vous envoie un document clair, sans jargon. Et on en discute ensemble en visio — vous posez vos questions, c'est offert.</p>
       </div>
       <div class="tl-step">
         <div class="tl-dot"></div>
-        <div class="tl-day">Week 2+</div>
-        <h3>Execution & tracking</h3>
-        <p>Implementation support, weekly check-ins, live rank tracking dashboard. You always know what moved.</p>
+        <div class="tl-day" data-i18n="process.step5.day">Semaine 2+</div>
+        <h3 data-i18n="process.step5.title">Exécution & suivi</h3>
+        <p data-i18n="process.step5.body">Si vous voulez aller plus loin, on bosse ensemble : on met en place les actions, on suit les progrès, vous voyez ce qui bouge.</p>
       </div>
     </div>
   </div>
@@ -782,16 +816,16 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 <section class="section" id="diff">
   <div class="wrap">
     <div class="section-head reveal">
-      <div class="eyebrow">What I find</div>
-      <h2>What my audit catches that other tools miss.</h2>
+      <div class="eyebrow" data-i18n="diff.eyebrow">Ce qu'on découvre</div>
+      <h2 data-i18n="diff.h2">Ce que notre analyse révèle (et que les outils gratuits manquent).</h2>
     </div>
     <div class="diff-grid">
-      <div class="diff-cell reveal"><div class="diff-arrow">→</div><div><h3>Zombie pages cannibalizing your own content.</h3><p>Pages competing against each other. Kill, merge, or reroute — I tell you which.</p></div></div>
-      <div class="diff-cell reveal" style="transition-delay:.1s"><div class="diff-arrow">→</div><div><h3>Keywords ranking #11–20 with one push to top 10.</h3><p>The fastest revenue you can ship in SEO. Most audits skip this entirely.</p></div></div>
-      <div class="diff-cell reveal" style="transition-delay:.2s"><div class="diff-arrow">→</div><div><h3>Internal linking diluting your authority.</h3><p>Your link equity is leaking. I show exactly where and how to redirect it.</p></div></div>
-      <div class="diff-cell reveal" style="transition-delay:.3s"><div class="diff-arrow">→</div><div><h3>Content gaps vs your top-3 competitors.</h3><p>What they rank on that you don't even cover. Prioritized by search intent and difficulty.</p></div></div>
+      <div class="diff-cell reveal"><div class="diff-arrow">→</div><div><h3 data-i18n="diff.c1.title">Des pages qui se concurrencent entre elles.</h3><p data-i18n="diff.c1.body">Vous avez plusieurs pages qui parlent du même sujet ? Elles s'annulent mutuellement sur Google. On vous dit lesquelles fusionner.</p></div></div>
+      <div class="diff-cell reveal" style="transition-delay:.1s"><div class="diff-arrow">→</div><div><h3 data-i18n="diff.c2.title">Des mots-clés à un cheveu du top 5.</h3><p data-i18n="diff.c2.body">Vous êtes en position 8-12 sur des recherches qui paient. Souvent un effort ciblé suffit pour passer dans le top 5.</p></div></div>
+      <div class="diff-cell reveal" style="transition-delay:.2s"><div class="diff-arrow">→</div><div><h3 data-i18n="diff.c3.title">Des liens internes mal placés.</h3><p data-i18n="diff.c3.body">Certaines pages de votre site reçoivent toute la "force", d'autres rien. On rééquilibre pour que ça profite aux bonnes pages.</p></div></div>
+      <div class="diff-cell reveal" style="transition-delay:.3s"><div class="diff-arrow">→</div><div><h3 data-i18n="diff.c4.title">Ce que vos concurrents font, et pas vous.</h3><p data-i18n="diff.c4.body">Les recherches sur lesquelles ils captent du trafic — et que vous pourriez prendre.</p></div></div>
     </div>
-    <p class="diff-conclusion reveal">AI lets me process volumes a human can't. My expertise turns that into a plan that pays.</p>
+    <p class="diff-conclusion reveal" data-i18n-html="diff.conclusion">L'IA nous laisse traiter des volumes impossibles à la main. <em>Notre expertise les transforme en un plan qui rapporte.</em></p>
   </div>
 </section>
 
@@ -799,86 +833,86 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 <section class="section" id="services">
   <div class="wrap">
     <div class="section-head reveal">
-      <div class="eyebrow">Services</div>
-      <h2>How I can help.</h2>
-      <p>Three ways to work together. Tell me your situation — I'll come back with a scoped proposal in 24h.</p>
+      <div class="eyebrow" data-i18n="services.eyebrow">Services</div>
+      <h2 data-i18n="services.h2">Comment on peut vous aider.</h2>
+      <p data-i18n="services.intro">Trois façons de bosser ensemble. Dites-nous votre situation — on revient avec une proposition adaptée sous 24h.</p>
     </div>
     <div class="service-tiles">
       <div class="service-tile reveal">
         <div class="service-tile-num">— 01</div>
-        <h3>Complete SEO Audit</h3>
-        <div class="service-tile-note">Delivered in 3–5 days</div>
+        <h3 data-i18n="services.s1.title">Diagnostic complet</h3>
+        <div class="service-tile-note" data-i18n="services.s1.note">Livré sous 3 à 5 jours</div>
         <ul class="service-tile-bullets">
-          <li>Technical audit (architecture, crawl, performance)</li>
-          <li>Semantic audit (keywords, content gaps, intent)</li>
-          <li>Backlink audit (authority, profile, competitors)</li>
-          <li>Prioritized action plan — not a 500-row Excel</li>
+          <li data-i18n="services.s1.b1">Audit technique (structure, vitesse, performance)</li>
+          <li data-i18n="services.s1.b2">Audit éditorial (mots-clés, contenus manquants)</li>
+          <li data-i18n="services.s1.b3">Audit des liens (autorité, profil, concurrents)</li>
+          <li data-i18n="services.s1.b4">Plan d'action priorisé — pas un Excel de 500 lignes</li>
         </ul>
       </div>
       <div class="service-tile reveal" style="transition-delay:.1s">
         <div class="service-tile-num">— 02</div>
-        <h3>Audit + 3-Month Build</h3>
-        <div class="service-tile-note">Audit + 3 months of execution</div>
+        <h3 data-i18n="services.s2.title">Diagnostic + accompagnement 3 mois</h3>
+        <div class="service-tile-note" data-i18n="services.s2.note">Diagnostic + 3 mois d'exécution</div>
         <ul class="service-tile-bullets">
-          <li>Everything in the complete audit</li>
-          <li>Guided implementation for 3 months</li>
-          <li>Monthly page-level optimization</li>
-          <li>Qualified backlink acquisition</li>
+          <li data-i18n="services.s2.b1">Tout le diagnostic complet</li>
+          <li data-i18n="services.s2.b2">On bosse avec vous pendant 3 mois</li>
+          <li data-i18n="services.s2.b3">Optimisation page par page chaque mois</li>
+          <li data-i18n="services.s2.b4">Acquisition de liens de qualité</li>
         </ul>
       </div>
       <div class="service-tile reveal" style="transition-delay:.2s">
         <div class="service-tile-num">— 03</div>
-        <h3>Continuous Retainer</h3>
-        <div class="service-tile-note">Scoped to your business</div>
+        <h3 data-i18n="services.s3.title">Suivi continu</h3>
+        <div class="service-tile-note" data-i18n="services.s3.note">Sur mesure selon votre activité</div>
         <ul class="service-tile-bullets">
-          <li>Initial audit included</li>
-          <li>Ongoing optimization across the site</li>
-          <li>Transparent monthly reporting</li>
-          <li>Monthly strategy call</li>
+          <li data-i18n="services.s3.b1">Diagnostic de départ inclus</li>
+          <li data-i18n="services.s3.b2">Optimisation continue sur tout le site</li>
+          <li data-i18n="services.s3.b3">Rapport mensuel transparent</li>
+          <li data-i18n="services.s3.b4">Call stratégique chaque mois</li>
         </ul>
       </div>
     </div>
     <div class="brief reveal" id="brief">
       <div class="brief-head">
-        <div class="eyebrow">Brief</div>
-        <h2>Tell me about your project.</h2>
-        <p>No 12-field gauntlet. Drop your URL, your goal, and what's blocking you. I read every brief myself.</p>
+        <div class="eyebrow" data-i18n="brief.eyebrow">Diagnostic gratuit</div>
+        <h2 data-i18n="brief.h2">Parlez-nous de votre projet.</h2>
+        <p data-i18n="brief.intro">Pas un parcours du combattant. Votre URL, votre objectif, ce qui vous bloque — on lit chaque brief en personne.</p>
         <div class="brief-head-meta">
-          <div>Reply within 24h</div>
-          <div>Free 15-min discovery call</div>
-          <div>NDA on request</div>
+          <div data-i18n="brief.meta1">Réponse sous 24h</div>
+          <div data-i18n="brief.meta2">Call découverte de 15 min offert</div>
+          <div data-i18n="brief.meta3">NDA sur demande</div>
         </div>
       </div>
       <div class="brief-success">
         <div class="brief-success-mark">✓</div>
-        <h3>Brief received.</h3>
-        <p>I'll get back to you within 24h with a scoped proposal. No funnel, no spam.</p>
+        <h3 data-i18n="brief.success.title">Brief bien reçu.</h3>
+        <p data-i18n="brief.success.body">On revient vers vous sous 24h avec une première analyse. Pas de funnel, pas de spam.</p>
       </div>
       <div class="brief-form-wrap">
         <form class="brief-form" id="brief-form" novalidate>
           <div class="field">
-            <label for="url">Website URL</label>
+            <label for="url" data-i18n="brief.url.label">Votre site web</label>
             <div class="field-url-wrap">
               <span>https://</span>
-              <input id="url" name="url" type="text" placeholder="yourdomain.com" required />
+              <input id="url" name="url" type="text" placeholder="votresite.fr" data-i18n-attr="placeholder:brief.url.ph" required />
             </div>
           </div>
           <div class="brief-row">
-            <div class="field"><label for="name">Your name</label><input id="name" name="name" type="text" placeholder="Jane Doe" required /></div>
-            <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="jane@company.com" required /></div>
+            <div class="field"><label for="name" data-i18n="brief.name.label">Votre prénom</label><input id="name" name="name" type="text" placeholder="Marie Dupont" data-i18n-attr="placeholder:brief.name.ph" required /></div>
+            <div class="field"><label for="email" data-i18n="brief.email.label">Votre email</label><input id="email" name="email" type="email" placeholder="marie@entreprise.fr" data-i18n-attr="placeholder:brief.email.ph" required /></div>
           </div>
           <div class="field">
-            <label for="goal">Main goal</label>
-            <textarea id="goal" name="goal" rows="3" placeholder="What does success look like in 6 months?" required></textarea>
+            <label for="goal" data-i18n="brief.goal.label">Votre objectif principal</label>
+            <textarea id="goal" name="goal" rows="3" placeholder="À quoi ressemble la réussite pour vous dans 6 mois ?" data-i18n-attr="placeholder:brief.goal.ph" required></textarea>
           </div>
           <div class="field">
-            <label for="context">Context</label>
-            <textarea id="context" name="context" rows="4" placeholder="Stack, traffic level, previous SEO work, blockers…"></textarea>
+            <label for="context" data-i18n="brief.context.label">Quelques mots sur votre activité</label>
+            <textarea id="context" name="context" rows="4" placeholder="Ce que vous faites, vos clients, ce que vous avez déjà essayé en SEO…" data-i18n-attr="placeholder:brief.context.ph"></textarea>
           </div>
-          <label class="consent"><input type="checkbox" name="consent" checked />I'd like a free 15-min discovery call before any commitment.</label>
+          <label class="consent"><input type="checkbox" name="consent" checked /><span data-i18n="brief.consent">J'aimerais un call découverte gratuit de 15 min avant tout engagement.</span></label>
           <div class="brief-foot">
-            <small>I reply within 24h. No automated funnel, no pushy follow-up.</small>
-            <button type="submit" class="btn btn-primary">Send brief →</button>
+            <small data-i18n="brief.foot">Réponse sous 24h. Pas de funnel automatique, pas de relance lourde.</small>
+            <button type="submit" class="btn btn-primary" data-i18n="brief.submit">Envoyer mon brief →</button>
           </div>
         </form>
       </div>
@@ -890,13 +924,13 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 <section class="section" id="why">
   <div class="wrap">
     <div class="section-head reveal">
-      <div class="eyebrow">Why HIGH RANK</div>
-      <h2>Three reasons clients pick me.</h2>
+      <div class="eyebrow" data-i18n="why.eyebrow">Pourquoi nous</div>
+      <h2 data-i18n="why.h2">Trois raisons que nos clients citent.</h2>
     </div>
     <div class="reassure-grid">
-      <div class="reassure-cell reveal"><div class="reassure-num">/ 01</div><h4>4 years agency-side + 50 sites of my own.</h4><p>I've shipped on enterprise stacks and on my own properties. Real skin in the game.</p></div>
-      <div class="reassure-cell reveal" style="transition-delay:.12s"><div class="reassure-num">/ 02</div><h4>AI methodology I actually built.</h4><p>Custom MCP servers, real workflows — not a ChatGPT prompt I sell back to you.</p></div>
-      <div class="reassure-cell reveal" style="transition-delay:.24s"><div class="reassure-num">/ 03</div><h4>No empty promises.</h4><p>Measurable outcomes only. If the audit doesn't deliver, you get a partial refund. In writing.</p></div>
+      <div class="reassure-cell reveal"><div class="reassure-num">/ 01</div><h4 data-i18n="why.r1.title">Pas de jargon. Que des actions concrètes.</h4><p data-i18n="why.r1.body">On vous parle comme à un partenaire, pas comme à un dev. Vous comprenez chaque décision et pourquoi on la prend.</p></div>
+      <div class="reassure-cell reveal" style="transition-delay:.12s"><div class="reassure-num">/ 02</div><h4 data-i18n="why.r2.title">On a vraiment construit notre méthode.</h4><p data-i18n="why.r2.body">4 ans en agence + 50 sites montés en propre. Outils IA développés en interne, pas un prompt ChatGPT recyclé.</p></div>
+      <div class="reassure-cell reveal" style="transition-delay:.24s"><div class="reassure-num">/ 03</div><h4 data-i18n="why.r3.title">Pas de promesses en l'air.</h4><p data-i18n="why.r3.body">Résultats mesurables. Si le diagnostic ne sort pas assez d'opportunités, on rembourse une partie. C'est écrit dans le contrat.</p></div>
     </div>
   </div>
 </section>
@@ -908,31 +942,31 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
       <!-- Photo -->
       <div class="about-photo-wrap reveal">
         <div class="about-photo-ph">
-          <img src="photo-profil-clean.png" alt="Tristan Wiart — SEO consultant" />
+          <img src="photo-profil-clean.png" alt="Tristan Wiart — consultant SEO" data-i18n-attr="alt:about.photo.alt" />
         </div>
       </div>
       <!-- Content -->
       <div class="about-content">
-        <div class="eyebrow reveal" style="margin-bottom:20px">Behind HIGH RANK</div>
-        <h2 class="reveal">Tristan.</h2>
-        <div class="about-role reveal">Founder & SEO Consultant</div>
-        <p class="reveal">I didn't start in an agency. I started by building sites — then figuring out how to get them to rank, then monetizing them. <strong>50+ sites</strong>, generating revenue through affiliate, link sales, and lead generation. That's where I learned what SEO actually is: not a checklist, but a compounding asset you build deliberately.</p>
-        <p class="reveal" style="transition-delay:.08s">Today I help businesses get more visibility on Google, with a focus on <strong>e-commerce, SaaS, construction, and local businesses</strong>. I write code, I know every CMS, and I've built custom AI workflows that process data at a scale no manual audit can touch — while I stay the one making the calls. French, based in Brazil, working with clients in the US and Europe regularly.</p>
-        <p class="reveal" style="transition-delay:.16s">I work solo — which means <strong>you deal with the person doing the work, start to finish</strong>. For specific needs (AI automation, dev, design), I have a tight network of partners I trust. No account managers. No juniors. Just the work, done properly.</p>
+        <div class="eyebrow reveal" style="margin-bottom:20px" data-i18n="about.eyebrow">Qui est derrière HIGH RANK</div>
+        <h2 class="reveal" data-i18n="about.h2">Tristan.</h2>
+        <div class="about-role reveal" data-i18n="about.role">Fondateur & consultant SEO</div>
+        <p class="reveal" data-i18n-html="about.p1">Je n'ai pas commencé en agence. J'ai d'abord monté mes propres sites — puis appris à les faire remonter sur Google, puis à les monétiser. <strong>Plus de 50 sites</strong>, qui génèrent du revenu via affiliation, vente de liens et génération de leads. C'est là que j'ai compris ce qu'est vraiment le SEO : pas une checklist, mais un actif qu'on construit volontairement et qui prend de la valeur dans le temps.</p>
+        <p class="reveal" style="transition-delay:.08s" data-i18n-html="about.p2">Aujourd'hui, j'aide des entreprises à être plus visibles sur Google, avec un focus sur <strong>l'e-commerce, le SaaS, le bâtiment et les commerces locaux</strong>. Je code, je connais tous les CMS, et j'ai développé des outils IA qui traitent des volumes impossibles à la main — sans jamais perdre la décision humaine. Français, basé au Brésil, je bosse régulièrement avec des clients en France, aux US et en Europe.</p>
+        <p class="reveal" style="transition-delay:.16s" data-i18n-html="about.p3">Je bosse en solo — ce qui veut dire que <strong>vous parlez à la personne qui fait le boulot, du début à la fin</strong>. Pour des besoins spécifiques (automatisation IA, dev, design), j'ai un réseau de partenaires de confiance. Pas de chargé de compte, pas de junior. Juste le travail, bien fait.</p>
         <div class="about-stats reveal" style="transition-delay:.22s">
-          <div class="about-stat"><b>4+</b><span>years SEO experience</span></div>
-          <div class="about-stat"><b>50+</b><span>sites built & owned</span></div>
-          <div class="about-stat"><b>20+</b><span>industries covered</span></div>
+          <div class="about-stat"><b>4+</b><span data-i18n="about.stat1">ans d'expérience SEO</span></div>
+          <div class="about-stat"><b>50+</b><span data-i18n="about.stat2">sites construits</span></div>
+          <div class="about-stat"><b>20+</b><span data-i18n="about.stat3">secteurs accompagnés</span></div>
         </div>
         <div class="about-tags reveal" style="transition-delay:.28s">
-          <span class="about-tag">Programmatic SEO</span>
-          <span class="about-tag">AI / MCP workflows</span>
-          <span class="about-tag">GEO & LLM visibility</span>
-          <span class="about-tag">Tech SEO</span>
-          <span class="about-tag">Semantic architecture</span>
-          <span class="about-tag">Link building</span>
-          <span class="about-tag">SaaS</span>
-          <span class="about-tag">E-commerce</span>
+          <span class="about-tag" data-i18n="about.tag1">SEO local</span>
+          <span class="about-tag" data-i18n="about.tag2">E-commerce</span>
+          <span class="about-tag" data-i18n="about.tag3">SaaS</span>
+          <span class="about-tag" data-i18n="about.tag4">Audit technique</span>
+          <span class="about-tag" data-i18n="about.tag5">Stratégie de contenu</span>
+          <span class="about-tag" data-i18n="about.tag6">Netlinking</span>
+          <span class="about-tag" data-i18n="about.tag7">Automatisation IA</span>
+          <span class="about-tag" data-i18n="about.tag8">Bâtiment & artisans</span>
         </div>
       </div>
     </div>
@@ -943,15 +977,16 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 <section class="section" id="faq">
   <div class="wrap">
     <div class="section-head reveal" style="text-align:center;margin-inline:auto">
-      <div class="eyebrow" style="justify-content:center">FAQ</div>
-      <h2>Common questions.</h2>
+      <div class="eyebrow" style="justify-content:center" data-i18n="faq.eyebrow">FAQ</div>
+      <h2 data-i18n="faq.h2">Les questions qu'on nous pose le plus.</h2>
     </div>
     <div class="faq-list">
-      <div class="faq-item reveal"><button class="faq-q" aria-expanded="false"><span>Why "AI-powered"?</span><span class="faq-toggle">+</span></button><div class="faq-a"><div class="faq-a-inner">AI spots patterns across thousands of URLs in minutes — patterns a human would miss or take weeks to surface. My job is to filter what actually matters and turn it into decisions. The AI never decides; it accelerates.</div></div></div>
-      <div class="faq-item reveal" style="transition-delay:.06s"><button class="faq-q" aria-expanded="false"><span>How are you different from other SEO consultants?</span><span class="faq-toggle">+</span></button><div class="faq-a"><div class="faq-a-inner">Three things: I write code, I know every CMS, and I've built MCP-based workflows so the LLMs work for me, not the other way around. Most consultants either talk strategy without execution, or execute without strategy. I do both.</div></div></div>
-      <div class="faq-item reveal" style="transition-delay:.12s"><button class="faq-q" aria-expanded="false"><span>Can I just do this myself?</span><span class="faq-toggle">+</span></button><div class="faq-a"><div class="faq-a-inner">Yes — if you have 40 hours to learn the playbook and 200 hours to execute. If your time is more valuable than that, hire someone who's already done it 20 times.</div></div></div>
-      <div class="faq-item reveal" style="transition-delay:.18s"><button class="faq-q" aria-expanded="false"><span>What guarantee do I have?</span><span class="faq-toggle">+</span></button><div class="faq-a"><div class="faq-a-inner">If the audit doesn't surface enough actionable opportunities to justify the investment, I refund part of the fee. Spelled out in the contract before you pay.</div></div></div>
-      <div class="faq-item reveal" style="transition-delay:.24s"><button class="faq-q" aria-expanded="false"><span>How long until I see results?</span><span class="faq-toggle">+</span></button><div class="faq-a"><div class="faq-a-inner">Quick wins: 4–8 weeks. Real movement on competitive terms: 2–4 months. Anyone promising you week-one results is selling you something other than SEO.</div></div></div>
+      <div class="faq-item reveal"><button class="faq-q" aria-expanded="false"><span data-i18n="faq.q1.q">C'est vraiment gratuit, le diagnostic ?</span><span class="faq-toggle">+</span></button><div class="faq-a"><div class="faq-a-inner" data-i18n="faq.q1.a">Oui, totalement. Aucune carte bancaire, aucun engagement. Vous remplissez le brief, on vous envoie l'analyse, point. Si vous voulez aller plus loin ensuite, on en discute. Si vous voulez juste l'info, c'est OK aussi.</div></div></div>
+      <div class="faq-item reveal" style="transition-delay:.06s"><button class="faq-q" aria-expanded="false"><span data-i18n="faq.q2.q">Combien de temps avant de voir des résultats ?</span><span class="faq-toggle">+</span></button><div class="faq-a"><div class="faq-a-inner" data-i18n="faq.q2.a">Honnêtement : entre 2 et 6 mois pour des résultats visibles, selon votre point de départ et votre secteur. Quelques gains rapides en 4-8 semaines, du mouvement sérieux en 3-4 mois. Quiconque vous promet des résultats en une semaine vous vend autre chose que du SEO.</div></div></div>
+      <div class="faq-item reveal" style="transition-delay:.12s"><button class="faq-q" aria-expanded="false"><span data-i18n="faq.q3.q">Et si je n'y connais rien en SEO ?</span><span class="faq-toggle">+</span></button><div class="faq-a"><div class="faq-a-inner" data-i18n="faq.q3.a">C'est exactement notre cible. Notre travail est de traduire le SEO en décisions business. Vous n'avez pas besoin de comprendre la mécanique — juste les bonnes actions à prendre, et pourquoi.</div></div></div>
+      <div class="faq-item reveal" style="transition-delay:.18s"><button class="faq-q" aria-expanded="false"><span data-i18n="faq.q4.q">Vous travaillez avec quels types d'entreprises ?</span><span class="faq-toggle">+</span></button><div class="faq-a"><div class="faq-a-inner" data-i18n="faq.q4.a">Indépendants, artisans, PME, e-commerce, SaaS. On a accompagné +20 secteurs. Si on pense qu'on ne peut pas vous aider, on vous le dira après le diagnostic — c'est aussi notre intérêt.</div></div></div>
+      <div class="faq-item reveal" style="transition-delay:.24s"><button class="faq-q" aria-expanded="false"><span data-i18n="faq.q5.q">C'est quoi exactement, le SEO ?</span><span class="faq-toggle">+</span></button><div class="faq-a"><div class="faq-a-inner" data-i18n="faq.q5.a">Faire en sorte que votre site apparaisse en haut de Google quand vos clients potentiels cherchent — sans payer de pub. C'est plus long que la pub, mais ça travaille pour vous 24/7 et ne s'arrête pas quand vous coupez le budget.</div></div></div>
+      <div class="faq-item reveal" style="transition-delay:.3s"><button class="faq-q" aria-expanded="false"><span data-i18n="faq.q6.q">Combien ça coûte ensuite ?</span><span class="faq-toggle">+</span></button><div class="faq-a"><div class="faq-a-inner" data-i18n="faq.q6.a">Les offres payantes vont de quelques centaines à quelques milliers d'euros selon votre besoin. Si le diagnostic ne sort pas assez d'opportunités pour justifier l'investissement, on rembourse une partie — c'est dans le contrat. On en parle seulement si vous voulez continuer.</div></div></div>
     </div>
   </div>
 </section>
@@ -959,10 +994,10 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 <!-- ── Final CTA ── -->
 <section class="final-cta" id="contact">
   <div class="wrap">
-    <h2 class="reveal">Ready to <span class="hi">unblock</span> your <em>SEO</em>?</h2>
-    <p class="reveal" style="transition-delay:.1s">Complete audit in 3–5 days. A real action plan — not 500 rows of Excel.</p>
+    <h2 class="reveal" data-i18n-html="cta.h2">Prêt à <span class="hi">débloquer</span> votre <em>visibilité</em> ?</h2>
+    <p class="reveal" style="transition-delay:.1s" data-i18n="cta.sub">Diagnostic gratuit. Pas de carte bancaire, pas d'engagement. On revient sous 48h.</p>
     <div class="final-cta-actions reveal" style="transition-delay:.22s">
-      <a href="#brief" class="btn btn-primary btn-xl">Book a free audit →</a>
+      <a href="#brief" class="btn btn-primary btn-xl" data-i18n="cta.button">Recevoir mon diagnostic gratuit →</a>
     </div>
   </div>
 </section>
@@ -970,18 +1005,359 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 <!-- ── Footer ── -->
 <footer class="footer">
   <div class="wrap footer-inner">
-    <div>SEO consulting, no fluff</div>
+    <div data-i18n="footer.tagline">Consulting SEO, sans bullshit.</div>
     <div class="footer-links">
-      <a href="#services">Services</a>
-      <a href="#method">Method</a>
-      <a href="#brief">Contact</a>
-      <a href="mentions-legales.html">Legal</a>
-      <a href="privacy.html">Privacy</a>
+      <a href="#services" data-i18n="footer.services">Services</a>
+      <a href="#method" data-i18n="footer.method">Méthode</a>
+      <a href="#brief" data-i18n="footer.contact">Contact</a>
+      <a href="mentions-legales.html" data-i18n="footer.legal">Mentions légales</a>
+      <a href="privacy.html" data-i18n="footer.privacy">Confidentialité</a>
     </div>
   </div>
 </footer>
 
 <script>
+/* ── i18n dictionary ── */
+const i18n = {
+  fr: {
+    'meta.title': 'HIGH RANK — Plus de clients via Google, sans payer de pub',
+    'meta.description': "On vous aide à attirer plus de clients depuis Google. Diagnostic gratuit, plan d'action clair, sans jargon technique.",
+    'ticker.s1': '● 2 créneaux de diagnostic ouverts ce mois-ci',
+    'ticker.s2': 'Prochain créneau disponible sous 48h',
+    'ticker.s3': 'Call découverte gratuit de 15 min',
+    'ticker.s4': 'Réponse moyenne : < 4h',
+    'ticker.s5': 'On analyse en profondeur. On décide ce qui compte.',
+    'nav.why': 'Pourquoi', 'nav.method': 'Méthode', 'nav.services': 'Services', 'nav.about': 'À propos', 'nav.faq': 'FAQ',
+    'nav.cta': 'Mon diagnostic gratuit →',
+    'hero.pill.tag': 'Disponible',
+    'hero.pill.text': 'Diagnostic gratuit ouvert — créneaux du mois',
+    'hero.h1': "Plus de <em>clients</em>. <em>Agenda rempli</em>.<br/>Plus de <em>chiffre d'affaires</em>.",
+    'hero.sub': "Votre site existe, mais peu de gens le trouvent sur Google ? On analyse ce qui bloque, on vous remet un plan d'action clair. Sans jargon technique.",
+    'hero.cta': 'Recevoir mon diagnostic gratuit →',
+    'hero.kw1': 'Visibilité Google', 'hero.kw2': 'Plus de leads', 'hero.kw3': 'Diagnostic offert',
+    'hero.kw4': 'Trafic qualifié', 'hero.kw5': 'Sans publicité', 'hero.kw6': "Plan d'action clair",
+    'hero.meta.years': "ans d'expérience SEO", 'hero.meta.industries': 'secteurs accompagnés', 'hero.meta.sites': 'sites construits',
+    'hero.preview.label': 'Diagnostic SEO — aperçu',
+    'hero.terminal.label': '→ démo — boucle sur données réelles',
+    'hero.terminal.cta': 'Mon diagnostic gratuit →',
+    'problem.eyebrow': 'Le problème',
+    'problem.h2': 'Pourquoi votre site ne vous ramène pas de clients ?',
+    'problem.card1.title': 'Vous êtes sur Google… mais en page 3.',
+    'problem.card1.body': "Personne ne va jamais en page 3. Si vous n'êtes pas dans le top 5, vos clients vont chez vos concurrents.",
+    'problem.card2.title': 'Vous payez de la pub pour rien.',
+    'problem.card2.body': "Google Ads, Meta Ads… ça coûte cher et ça s'arrête dès que vous coupez le robinet. Le référencement naturel travaille pour vous 24/7.",
+    'problem.card3.title': 'Vos concurrents apparaissent à votre place.',
+    'problem.card3.body': "Ils sont en haut, vous en bas. Souvent ce n'est pas qu'ils sont meilleurs — c'est qu'ils ont une méthode.",
+    'problem.conclusion': "Ce n'est pas une question de chance. C'est une question de <em>méthode</em>.",
+    'problem.cta': 'Voir la méthode →',
+    'method.eyebrow': 'La méthode',
+    'method.h2': "On combine puissance d'analyse et bon sens humain.",
+    'method.intro': "La plupart des audits s'arrêtent au dump de données. Nous, on commence là.",
+    'method.them.label': 'Les autres audits',
+    'method.them.b1': 'Un outil automatique scanne votre site',
+    'method.them.b2': 'On vous balance 10 000 lignes de CSV',
+    'method.them.b3': '"Voici les soucis — bon courage"',
+    'method.them.b4': 'Rapport statique, pas de suivi',
+    'method.us.label': 'HIGH RANK',
+    'method.us.b1': 'Analyse profonde + outils IA développés en interne',
+    'method.us.b2': "L'IA traite le volume, nous on décide des priorités",
+    'method.us.b3': "Plan d'action clair : ce qui paie vite + le long terme",
+    'method.us.b4': 'Suivi en direct, points hebdo',
+    'method.tagline': "L'IA <em>détecte</em>. Notre expertise <em>décide</em>.",
+    'process.eyebrow': 'Le déroulé',
+    'process.h2': 'De votre brief aux premiers résultats.',
+    'process.intro': 'Pas de boîte noire. Voici exactement ce qui se passe après que vous nous écrivez.',
+    'process.step1.day': 'Jour 0', 'process.step1.title': 'Vous remplissez le brief',
+    'process.step1.body': '3 minutes. Quelques questions simples sur votre activité et vos objectifs. On vous lit en personne et on répond sous 4h.',
+    'process.step2.day': 'Jour 1', 'process.step2.title': 'On analyse votre site',
+    'process.step2.body': 'On regarde tout ce qui bloque votre visibilité : structure, vitesse, présence sur Google. Sous 48h.',
+    'process.step3.day': 'Jour 3', 'process.step3.title': 'Analyse IA',
+    'process.step3.body': 'Nos modèles internes analysent les pages qui se concurrencent, les mots-clés à fort potentiel et les écarts avec vos concurrents.',
+    'process.step4.day': 'Jour 5', 'process.step4.title': 'Diagnostic + call',
+    'process.step4.body': "On vous envoie un document clair, sans jargon. Et on en discute ensemble en visio — vous posez vos questions, c'est offert.",
+    'process.step5.day': 'Semaine 2+', 'process.step5.title': 'Exécution & suivi',
+    'process.step5.body': "Si vous voulez aller plus loin, on bosse ensemble : on met en place les actions, on suit les progrès, vous voyez ce qui bouge.",
+    'diff.eyebrow': "Ce qu'on découvre",
+    'diff.h2': 'Ce que notre analyse révèle (et que les outils gratuits manquent).',
+    'diff.c1.title': 'Des pages qui se concurrencent entre elles.',
+    'diff.c1.body': "Vous avez plusieurs pages qui parlent du même sujet ? Elles s'annulent mutuellement sur Google. On vous dit lesquelles fusionner.",
+    'diff.c2.title': 'Des mots-clés à un cheveu du top 5.',
+    'diff.c2.body': 'Vous êtes en position 8-12 sur des recherches qui paient. Souvent un effort ciblé suffit pour passer dans le top 5.',
+    'diff.c3.title': 'Des liens internes mal placés.',
+    'diff.c3.body': 'Certaines pages de votre site reçoivent toute la "force", d\'autres rien. On rééquilibre pour que ça profite aux bonnes pages.',
+    'diff.c4.title': 'Ce que vos concurrents font, et pas vous.',
+    'diff.c4.body': 'Les recherches sur lesquelles ils captent du trafic — et que vous pourriez prendre.',
+    'diff.conclusion': "L'IA nous laisse traiter des volumes impossibles à la main. <em>Notre expertise les transforme en un plan qui rapporte.</em>",
+    'services.eyebrow': 'Services',
+    'services.h2': 'Comment on peut vous aider.',
+    'services.intro': "Trois façons de bosser ensemble. Dites-nous votre situation — on revient avec une proposition adaptée sous 24h.",
+    'services.s1.title': 'Diagnostic complet', 'services.s1.note': 'Livré sous 3 à 5 jours',
+    'services.s1.b1': 'Audit technique (structure, vitesse, performance)',
+    'services.s1.b2': 'Audit éditorial (mots-clés, contenus manquants)',
+    'services.s1.b3': 'Audit des liens (autorité, profil, concurrents)',
+    'services.s1.b4': "Plan d'action priorisé — pas un Excel de 500 lignes",
+    'services.s2.title': 'Diagnostic + accompagnement 3 mois', 'services.s2.note': "Diagnostic + 3 mois d'exécution",
+    'services.s2.b1': 'Tout le diagnostic complet',
+    'services.s2.b2': 'On bosse avec vous pendant 3 mois',
+    'services.s2.b3': 'Optimisation page par page chaque mois',
+    'services.s2.b4': 'Acquisition de liens de qualité',
+    'services.s3.title': 'Suivi continu', 'services.s3.note': 'Sur mesure selon votre activité',
+    'services.s3.b1': 'Diagnostic de départ inclus',
+    'services.s3.b2': 'Optimisation continue sur tout le site',
+    'services.s3.b3': 'Rapport mensuel transparent',
+    'services.s3.b4': 'Call stratégique chaque mois',
+    'brief.eyebrow': 'Diagnostic gratuit',
+    'brief.h2': 'Parlez-nous de votre projet.',
+    'brief.intro': "Pas un parcours du combattant. Votre URL, votre objectif, ce qui vous bloque — on lit chaque brief en personne.",
+    'brief.meta1': 'Réponse sous 24h', 'brief.meta2': 'Call découverte de 15 min offert', 'brief.meta3': 'NDA sur demande',
+    'brief.success.title': 'Brief bien reçu.',
+    'brief.success.body': "On revient vers vous sous 24h avec une première analyse. Pas de funnel, pas de spam.",
+    'brief.url.label': 'Votre site web', 'brief.url.ph': 'votresite.fr',
+    'brief.name.label': 'Votre prénom', 'brief.name.ph': 'Marie Dupont',
+    'brief.email.label': 'Votre email', 'brief.email.ph': 'marie@entreprise.fr',
+    'brief.goal.label': 'Votre objectif principal',
+    'brief.goal.ph': 'À quoi ressemble la réussite pour vous dans 6 mois ?',
+    'brief.context.label': 'Quelques mots sur votre activité',
+    'brief.context.ph': "Ce que vous faites, vos clients, ce que vous avez déjà essayé en SEO…",
+    'brief.consent': "J'aimerais un call découverte gratuit de 15 min avant tout engagement.",
+    'brief.foot': "Réponse sous 24h. Pas de funnel automatique, pas de relance lourde.",
+    'brief.submit': 'Envoyer mon brief →',
+    'brief.sending': 'Envoi en cours…',
+    'brief.error': "Une erreur est survenue — écrivez-nous directement à tristanwiartruant@gmail.com",
+    'why.eyebrow': 'Pourquoi nous',
+    'why.h2': 'Trois raisons que nos clients citent.',
+    'why.r1.title': 'Pas de jargon. Que des actions concrètes.',
+    'why.r1.body': "On vous parle comme à un partenaire, pas comme à un dev. Vous comprenez chaque décision et pourquoi on la prend.",
+    'why.r2.title': "On a vraiment construit notre méthode.",
+    'why.r2.body': "4 ans en agence + 50 sites montés en propre. Outils IA développés en interne, pas un prompt ChatGPT recyclé.",
+    'why.r3.title': "Pas de promesses en l'air.",
+    'why.r3.body': "Résultats mesurables. Si le diagnostic ne sort pas assez d'opportunités, on rembourse une partie. C'est écrit dans le contrat.",
+    'about.eyebrow': 'Qui est derrière HIGH RANK',
+    'about.h2': 'Tristan.',
+    'about.role': 'Fondateur & consultant SEO',
+    'about.photo.alt': 'Tristan Wiart — consultant SEO',
+    'about.p1': "Je n'ai pas commencé en agence. J'ai d'abord monté mes propres sites — puis appris à les faire remonter sur Google, puis à les monétiser. <strong>Plus de 50 sites</strong>, qui génèrent du revenu via affiliation, vente de liens et génération de leads. C'est là que j'ai compris ce qu'est vraiment le SEO : pas une checklist, mais un actif qu'on construit volontairement et qui prend de la valeur dans le temps.",
+    'about.p2': "Aujourd'hui, j'aide des entreprises à être plus visibles sur Google, avec un focus sur <strong>l'e-commerce, le SaaS, le bâtiment et les commerces locaux</strong>. Je code, je connais tous les CMS, et j'ai développé des outils IA qui traitent des volumes impossibles à la main — sans jamais perdre la décision humaine. Français, basé au Brésil, je bosse régulièrement avec des clients en France, aux US et en Europe.",
+    'about.p3': "Je bosse en solo — ce qui veut dire que <strong>vous parlez à la personne qui fait le boulot, du début à la fin</strong>. Pour des besoins spécifiques (automatisation IA, dev, design), j'ai un réseau de partenaires de confiance. Pas de chargé de compte, pas de junior. Juste le travail, bien fait.",
+    'about.stat1': "ans d'expérience SEO", 'about.stat2': 'sites construits', 'about.stat3': 'secteurs accompagnés',
+    'about.tag1': 'SEO local', 'about.tag2': 'E-commerce', 'about.tag3': 'SaaS', 'about.tag4': 'Audit technique',
+    'about.tag5': 'Stratégie de contenu', 'about.tag6': 'Netlinking', 'about.tag7': 'Automatisation IA', 'about.tag8': 'Bâtiment & artisans',
+    'faq.eyebrow': 'FAQ', 'faq.h2': "Les questions qu'on nous pose le plus.",
+    'faq.q1.q': "C'est vraiment gratuit, le diagnostic ?",
+    'faq.q1.a': "Oui, totalement. Aucune carte bancaire, aucun engagement. Vous remplissez le brief, on vous envoie l'analyse, point. Si vous voulez aller plus loin ensuite, on en discute. Si vous voulez juste l'info, c'est OK aussi.",
+    'faq.q2.q': 'Combien de temps avant de voir des résultats ?',
+    'faq.q2.a': "Honnêtement : entre 2 et 6 mois pour des résultats visibles, selon votre point de départ et votre secteur. Quelques gains rapides en 4-8 semaines, du mouvement sérieux en 3-4 mois. Quiconque vous promet des résultats en une semaine vous vend autre chose que du SEO.",
+    'faq.q3.q': "Et si je n'y connais rien en SEO ?",
+    'faq.q3.a': "C'est exactement notre cible. Notre travail est de traduire le SEO en décisions business. Vous n'avez pas besoin de comprendre la mécanique — juste les bonnes actions à prendre, et pourquoi.",
+    'faq.q4.q': "Vous travaillez avec quels types d'entreprises ?",
+    'faq.q4.a': "Indépendants, artisans, PME, e-commerce, SaaS. On a accompagné +20 secteurs. Si on pense qu'on ne peut pas vous aider, on vous le dira après le diagnostic — c'est aussi notre intérêt.",
+    'faq.q5.q': "C'est quoi exactement, le SEO ?",
+    'faq.q5.a': "Faire en sorte que votre site apparaisse en haut de Google quand vos clients potentiels cherchent — sans payer de pub. C'est plus long que la pub, mais ça travaille pour vous 24/7 et ne s'arrête pas quand vous coupez le budget.",
+    'faq.q6.q': 'Combien ça coûte ensuite ?',
+    'faq.q6.a': "Les offres payantes vont de quelques centaines à quelques milliers d'euros selon votre besoin. Si le diagnostic ne sort pas assez d'opportunités pour justifier l'investissement, on rembourse une partie — c'est dans le contrat. On en parle seulement si vous voulez continuer.",
+    'cta.h2': 'Prêt à <span class="hi">débloquer</span> votre <em>visibilité</em> ?',
+    'cta.sub': "Diagnostic gratuit. Pas de carte bancaire, pas d'engagement. On revient sous 48h.",
+    'cta.button': 'Recevoir mon diagnostic gratuit →',
+    'footer.tagline': 'Consulting SEO, sans bullshit.',
+    'footer.services': 'Services', 'footer.method': 'Méthode', 'footer.contact': 'Contact',
+    'footer.legal': 'Mentions légales', 'footer.privacy': 'Confidentialité'
+  },
+  en: {
+    'meta.title': 'HIGH RANK — More leads from Google, without paying for ads',
+    'meta.description': 'We help you attract more clients from Google. Free audit, clear action plan, no technical jargon.',
+    'ticker.s1': '● 2 audit slots open this month',
+    'ticker.s2': 'Next slot available within 48h',
+    'ticker.s3': 'Free 15-min discovery call',
+    'ticker.s4': 'Avg. response time: < 4h',
+    'ticker.s5': 'We analyze deeply. We decide what matters.',
+    'nav.why': 'Why', 'nav.method': 'Method', 'nav.services': 'Services', 'nav.about': 'About', 'nav.faq': 'FAQ',
+    'nav.cta': 'Get my free audit →',
+    'hero.pill.tag': 'Available',
+    'hero.pill.text': 'Free audit slots open this month',
+    'hero.h1': "More <em>leads</em>. <em>Booked calendar</em>.<br/>More <em>revenue</em>.",
+    'hero.sub': "Your site exists, but few people find it on Google? We analyze what's blocking you, then deliver a clear action plan. No technical jargon.",
+    'hero.cta': 'Get my free audit →',
+    'hero.kw1': 'Google visibility', 'hero.kw2': 'More leads', 'hero.kw3': 'Free audit',
+    'hero.kw4': 'Qualified traffic', 'hero.kw5': 'No ad spend', 'hero.kw6': 'Clear action plan',
+    'hero.meta.years': 'years of SEO experience', 'hero.meta.industries': 'industries covered', 'hero.meta.sites': 'sites built',
+    'hero.preview.label': 'SEO audit — preview',
+    'hero.terminal.label': '→ demo — looping live data',
+    'hero.terminal.cta': 'Get my free audit →',
+    'problem.eyebrow': 'The problem',
+    'problem.h2': "Why your site isn't bringing in clients.",
+    'problem.card1.title': "You're on Google… but on page 3.",
+    'problem.card1.body': "Nobody ever goes to page 3. If you're not in the top 5, your clients go to your competitors.",
+    'problem.card2.title': "You're paying for ads that go nowhere.",
+    'problem.card2.body': 'Google Ads, Meta Ads… it costs a lot and stops the second you stop paying. Organic SEO works for you 24/7.',
+    'problem.card3.title': 'Your competitors show up in your place.',
+    'problem.card3.body': "They're on top, you're on the bottom. Often it's not that they're better — they just have a method.",
+    'problem.conclusion': "It's not a question of luck. It's a question of <em>method</em>.",
+    'problem.cta': 'See the method →',
+    'method.eyebrow': 'The method',
+    'method.h2': 'We combine deep analysis with human judgment.',
+    'method.intro': "Most audits stop at the data dump. We start there.",
+    'method.them.label': 'Other audits',
+    'method.them.b1': 'An automated tool scans your site',
+    'method.them.b2': 'You get 10,000 rows of CSV',
+    'method.them.b3': '"Here are the issues — good luck"',
+    'method.them.b4': 'Static report, no follow-up',
+    'method.us.label': 'HIGH RANK',
+    'method.us.b1': 'Deep analysis + AI tools we built ourselves',
+    'method.us.b2': 'AI handles volume, we rank the priorities',
+    'method.us.b3': 'Clear action plan: quick wins + long game',
+    'method.us.b4': 'Live tracking, weekly check-ins',
+    'method.tagline': 'AI <em>detects</em>. Our expertise <em>decides</em>.',
+    'process.eyebrow': 'Process',
+    'process.h2': 'From your brief to first results.',
+    'process.intro': "No black box. Here's exactly what happens after you write us.",
+    'process.step1.day': 'Day 0', 'process.step1.title': 'You fill the brief',
+    'process.step1.body': '3 minutes. A few simple questions about your business and goals. We read it personally and reply within 4h.',
+    'process.step2.day': 'Day 1', 'process.step2.title': 'We analyze your site',
+    'process.step2.body': 'We look at everything blocking your visibility: structure, speed, Google presence. Within 48h.',
+    'process.step3.day': 'Day 3', 'process.step3.title': 'AI analysis',
+    'process.step3.body': "Our in-house models analyze competing pages, high-potential keywords, and gaps versus competitors.",
+    'process.step4.day': 'Day 5', 'process.step4.title': 'Diagnosis + call',
+    'process.step4.body': "We send you a clear document, no jargon. Then we walk through it together on video — you ask anything, it's free.",
+    'process.step5.day': 'Week 2+', 'process.step5.title': 'Execution & tracking',
+    'process.step5.body': "If you want to go further, we work together: we implement the actions, track progress, you see what moves.",
+    'diff.eyebrow': 'What we find',
+    'diff.h2': 'What our analysis catches that free tools miss.',
+    'diff.c1.title': 'Pages on your site competing against each other.',
+    'diff.c1.body': "Have several pages on the same topic? They cancel each other out on Google. We tell you which to merge.",
+    'diff.c2.title': 'Keywords just outside the top 5.',
+    'diff.c2.body': "You're ranked 8-12 on searches that convert. Often a focused push is enough to break into the top 5.",
+    'diff.c3.title': 'Internal links in the wrong places.',
+    'diff.c3.body': 'On your site, some pages get all the "juice" and others none. We rebalance so it benefits the right ones.',
+    'diff.c4.title': "What your competitors do that you don't.",
+    'diff.c4.body': "The searches they're capturing — and that you could take from them.",
+    'diff.conclusion': "AI lets us process volumes impossible by hand. <em>Our expertise turns that into a plan that pays.</em>",
+    'services.eyebrow': 'Services',
+    'services.h2': 'How we can help you.',
+    'services.intro': "Three ways to work together. Tell us your situation — we'll come back with a scoped proposal within 24h.",
+    'services.s1.title': 'Complete audit', 'services.s1.note': 'Delivered in 3-5 days',
+    'services.s1.b1': 'Technical audit (architecture, speed, performance)',
+    'services.s1.b2': 'Editorial audit (keywords, missing content)',
+    'services.s1.b3': 'Backlink audit (authority, profile, competitors)',
+    'services.s1.b4': 'Prioritized action plan — not a 500-row Excel',
+    'services.s2.title': 'Audit + 3-month build', 'services.s2.note': 'Audit + 3 months of execution',
+    'services.s2.b1': 'Everything in the complete audit',
+    'services.s2.b2': 'We work with you for 3 months',
+    'services.s2.b3': 'Monthly page-level optimization',
+    'services.s2.b4': 'Quality backlink acquisition',
+    'services.s3.title': 'Continuous retainer', 'services.s3.note': 'Scoped to your business',
+    'services.s3.b1': 'Initial audit included',
+    'services.s3.b2': 'Ongoing optimization across the site',
+    'services.s3.b3': 'Transparent monthly reporting',
+    'services.s3.b4': 'Monthly strategy call',
+    'brief.eyebrow': 'Free audit',
+    'brief.h2': 'Tell us about your project.',
+    'brief.intro': "No 12-field gauntlet. Drop your URL, your goal, and what's blocking you. We read every brief personally.",
+    'brief.meta1': 'Reply within 24h', 'brief.meta2': 'Free 15-min discovery call', 'brief.meta3': 'NDA on request',
+    'brief.success.title': 'Brief received.',
+    'brief.success.body': "We'll get back to you within 24h with a first analysis. No funnel, no spam.",
+    'brief.url.label': 'Your website', 'brief.url.ph': 'yourdomain.com',
+    'brief.name.label': 'Your first name', 'brief.name.ph': 'Jane Doe',
+    'brief.email.label': 'Your email', 'brief.email.ph': 'jane@company.com',
+    'brief.goal.label': 'Your main goal',
+    'brief.goal.ph': 'What does success look like in 6 months?',
+    'brief.context.label': 'A few words about your business',
+    'brief.context.ph': 'What you do, your clients, what SEO you have already tried…',
+    'brief.consent': "I'd like a free 15-min discovery call before any commitment.",
+    'brief.foot': 'Reply within 24h. No automated funnel, no pushy follow-up.',
+    'brief.submit': 'Send my brief →',
+    'brief.sending': 'Sending…',
+    'brief.error': 'Something went wrong — email us directly at tristanwiartruant@gmail.com',
+    'why.eyebrow': 'Why us',
+    'why.h2': 'Three reasons our clients pick us.',
+    'why.r1.title': 'No jargon. Just concrete actions.',
+    'why.r1.body': "We talk to you like a partner, not like a dev. You understand every decision and why we make it.",
+    'why.r2.title': 'We actually built our method.',
+    'why.r2.body': '4 years agency-side + 50 sites of our own. AI tools built in-house — not a recycled ChatGPT prompt.',
+    'why.r3.title': 'No empty promises.',
+    'why.r3.body': "Measurable outcomes. If the audit doesn't surface enough opportunities, we refund part of it. It's in the contract.",
+    'about.eyebrow': 'Behind HIGH RANK',
+    'about.h2': 'Tristan.',
+    'about.role': 'Founder & SEO consultant',
+    'about.photo.alt': 'Tristan Wiart — SEO consultant',
+    'about.p1': "I didn't start in an agency. I started by building my own sites — then figuring out how to rank them, then monetizing them. <strong>50+ sites</strong>, generating revenue through affiliate, link sales, and lead generation. That's where I learned what SEO actually is: not a checklist, but a compounding asset you build deliberately.",
+    'about.p2': "Today I help businesses get more visibility on Google, with a focus on <strong>e-commerce, SaaS, construction, and local businesses</strong>. I write code, I know every CMS, and I've built custom AI workflows that process data at a scale no manual audit can touch — while I stay the one making the calls. French, based in Brazil, working with clients in France, the US and Europe regularly.",
+    'about.p3': "I work solo — which means <strong>you deal with the person doing the work, start to finish</strong>. For specific needs (AI automation, dev, design), I have a tight network of partners I trust. No account managers. No juniors. Just the work, done properly.",
+    'about.stat1': 'years of SEO experience', 'about.stat2': 'sites built & owned', 'about.stat3': 'industries covered',
+    'about.tag1': 'Local SEO', 'about.tag2': 'E-commerce', 'about.tag3': 'SaaS', 'about.tag4': 'Technical audit',
+    'about.tag5': 'Content strategy', 'about.tag6': 'Link building', 'about.tag7': 'AI automation', 'about.tag8': 'Construction & trades',
+    'faq.eyebrow': 'FAQ', 'faq.h2': 'The questions we get the most.',
+    'faq.q1.q': 'Is the audit really free?',
+    'faq.q1.a': "Yes, completely. No credit card, no commitment. You fill out the brief, we send you the analysis. That's it. If you want to go further, we discuss it. If you just want the info, that's fine too.",
+    'faq.q2.q': 'How long until I see results?',
+    'faq.q2.a': "Honestly: 2 to 6 months for visible results, depending on where you start and your industry. Quick wins in 4-8 weeks, serious movement in 3-4 months. Anyone promising you week-one results is selling you something other than SEO.",
+    'faq.q3.q': 'What if I know nothing about SEO?',
+    'faq.q3.a': "That's exactly who we work with. Our job is to translate SEO into business decisions. You don't need to understand the mechanics — just the right actions to take, and why.",
+    'faq.q4.q': 'What kind of businesses do you work with?',
+    'faq.q4.a': "Freelancers, local trades, small businesses, e-commerce, SaaS. We've worked across 20+ industries. If we don't think we can help you, we'll tell you after the audit — it's in our interest too.",
+    'faq.q5.q': 'What is SEO exactly?',
+    'faq.q5.a': "Making your site appear at the top of Google when your potential clients search — without paying for ads. It takes longer than ads, but works 24/7 and doesn't stop when you cut the budget.",
+    'faq.q6.q': 'How much does it cost after?',
+    'faq.q6.a': "Paid offers range from a few hundred to a few thousand euros depending on your needs. If the audit doesn't surface enough opportunities to justify the investment, we refund part of it — it's in the contract. We discuss this only if you want to continue.",
+    'cta.h2': 'Ready to <span class="hi">unblock</span> your <em>visibility</em>?',
+    'cta.sub': "Free audit. No credit card, no commitment. We get back within 48h.",
+    'cta.button': 'Get my free audit →',
+    'footer.tagline': 'SEO consulting, no fluff.',
+    'footer.services': 'Services', 'footer.method': 'Method', 'footer.contact': 'Contact',
+    'footer.legal': 'Legal', 'footer.privacy': 'Privacy'
+  }
+};
+
+let currentLang = 'fr';
+
+function applyLang(lang) {
+  if (lang !== 'fr' && lang !== 'en') lang = 'fr';
+  currentLang = lang;
+  document.documentElement.lang = lang;
+  const dict = i18n[lang];
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (dict[key] !== undefined) el.textContent = dict[key];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.getAttribute('data-i18n-html');
+    if (dict[key] !== undefined) el.innerHTML = dict[key];
+  });
+  document.querySelectorAll('[data-i18n-attr]').forEach(el => {
+    const spec = el.getAttribute('data-i18n-attr');
+    spec.split(';').forEach(pair => {
+      const idx = pair.indexOf(':');
+      if (idx < 0) return;
+      const attr = pair.slice(0, idx).trim();
+      const key = pair.slice(idx + 1).trim();
+      if (dict[key] !== undefined) el.setAttribute(attr, dict[key]);
+    });
+  });
+
+  if (dict['meta.title']) document.title = dict['meta.title'];
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc && dict['meta.description']) metaDesc.setAttribute('content', dict['meta.description']);
+
+  document.querySelectorAll('.lang-pill').forEach(p => {
+    const active = p.dataset.lang === lang;
+    p.classList.toggle('active', active);
+    p.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
+
+  try { localStorage.setItem('hr-lang', lang); } catch (e) {}
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  let stored = null;
+  try { stored = localStorage.getItem('hr-lang'); } catch (e) {}
+  const browserFr = (navigator.language || 'fr').toLowerCase().startsWith('fr');
+  applyLang(stored || (browserFr ? 'fr' : 'en'));
+
+  document.querySelectorAll('.lang-pill').forEach(p => {
+    p.addEventListener('click', () => applyLang(p.dataset.lang));
+  });
+});
+
 /* ── Canvas dots ── */
 (function(){
   const canvas = document.getElementById('bg-canvas');
@@ -1197,7 +1573,8 @@ document.getElementById('brief-form').addEventListener('submit',async e=>{
   e.preventDefault();
   const form=e.target;
   const btn=form.querySelector('[type=submit]');
-  btn.textContent='Sending…'; btn.disabled=true;
+  const dict=i18n[currentLang]||i18n.fr;
+  btn.textContent=dict['brief.sending']; btn.disabled=true;
   const data=new FormData(form);
   data.append('_subject','New audit request — HIGH RANK');
   data.append('_captcha','false');
@@ -1215,8 +1592,8 @@ document.getElementById('brief-form').addEventListener('submit',async e=>{
       brief.scrollIntoView({behavior:'smooth',block:'start'});
     }else{ throw new Error('failed'); }
   }catch(err){
-    btn.textContent='Send brief →'; btn.disabled=false;
-    alert('Something went wrong — email me directly at tristanwiartruant@gmail.com');
+    btn.textContent=dict['brief.submit']; btn.disabled=false;
+    alert(dict['brief.error']);
   }
 });
 </script>
